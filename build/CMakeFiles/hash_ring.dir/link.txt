@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhash_ring.a CMakeFiles/hash_ring.dir/src/hash_ring.cpp.o
+/usr/bin/ranlib libhash_ring.a

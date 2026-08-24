@@ -1,0 +1,237 @@
+
+Node_0_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27793)
+Started node on localhost:50052 (PID 27794)
+Started node on localhost:50053 (PID 27795)
+Started node on localhost:50054 (PID 27796)
+Started node on localhost:50055 (PID 27797)
+Started node on localhost:50056 (PID 27798)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27794).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27798).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_0_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 27818)
+Started node on localhost:50052 (PID 27819)
+Started node on localhost:50053 (PID 27820)
+Started node on localhost:50054 (PID 27821)
+Started node on localhost:50055 (PID 27822)
+Started node on localhost:50056 (PID 27823)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 27818).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27823).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_1_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27839)
+Started node on localhost:50052 (PID 27840)
+Started node on localhost:50053 (PID 27841)
+Started node on localhost:50054 (PID 27842)
+Started node on localhost:50055 (PID 27843)
+Started node on localhost:50056 (PID 27844)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27840).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27844).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_1_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 27858)
+Started node on localhost:50052 (PID 27859)
+Started node on localhost:50053 (PID 27860)
+Started node on localhost:50054 (PID 27861)
+Started node on localhost:50055 (PID 27862)
+Started node on localhost:50056 (PID 27863)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 27858).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27863).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_2_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27877)
+Started node on localhost:50052 (PID 27878)
+Started node on localhost:50053 (PID 27879)
+Started node on localhost:50054 (PID 27880)
+Started node on localhost:50055 (PID 27881)
+Started node on localhost:50056 (PID 27882)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27878).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27882).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_2_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 27896)
+Started node on localhost:50052 (PID 27897)
+Started node on localhost:50053 (PID 27898)
+Started node on localhost:50054 (PID 27899)
+Started node on localhost:50055 (PID 27900)
+Started node on localhost:50056 (PID 27901)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 27896).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27901).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_3_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27915)
+Started node on localhost:50052 (PID 27916)
+Started node on localhost:50053 (PID 27917)
+Started node on localhost:50054 (PID 27918)
+Started node on localhost:50055 (PID 27919)
+Started node on localhost:50056 (PID 27920)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27916).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27920).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_3_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 27934)
+Started node on localhost:50052 (PID 27935)
+Started node on localhost:50053 (PID 27936)
+Started node on localhost:50054 (PID 27937)
+Started node on localhost:50055 (PID 27938)
+Started node on localhost:50056 (PID 27939)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 27934).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27939).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_4_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27953)
+Started node on localhost:50052 (PID 27954)
+Started node on localhost:50053 (PID 27955)
+Started node on localhost:50054 (PID 27956)
+Started node on localhost:50055 (PID 27957)
+Started node on localhost:50056 (PID 27958)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27954).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27958).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_4_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 27972)
+Started node on localhost:50052 (PID 27973)
+Started node on localhost:50053 (PID 27974)
+Started node on localhost:50054 (PID 27975)
+Started node on localhost:50055 (PID 27976)
+Started node on localhost:50056 (PID 27977)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 27972).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27977).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_5_iter_0
+All nodes stopped.
+Started node on localhost:50051 (PID 27991)
+Started node on localhost:50052 (PID 27992)
+Started node on localhost:50053 (PID 27993)
+Started node on localhost:50054 (PID 27994)
+Started node on localhost:50055 (PID 27995)
+Started node on localhost:50056 (PID 27996)
+preference list: localhost:50052 localhost:50056 localhost:50054 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50052 (PID 27992).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 27996).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+
+Node_5_iter_1
+All nodes stopped.
+Started node on localhost:50051 (PID 28010)
+Started node on localhost:50052 (PID 28011)
+Started node on localhost:50053 (PID 28012)
+Started node on localhost:50054 (PID 28013)
+Started node on localhost:50055 (PID 28014)
+Started node on localhost:50056 (PID 28015)
+preference list: localhost:50051 localhost:50056 localhost:50055 
+[OK] Write succeeded with 3/3 replicas alive.
+Killed node on port 50051 (PID 28010).
+[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met).
+[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met).
+Killed node on port 50056 (PID 28015).
+[OK] Read correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Delete correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+[OK] Put correctly failed with only 1/3 replicas alive (quorum of 2 NOT met — this is expected, not a bug).
+All nodes stopped.
+Started node on localhost:50051 (PID 28029)
+Started node on localhost:50052 (PID 28030)
+Started node on localhost:50053 (PID 28031)
+Started node on localhost:50054 (PID 28032)
+Started node on localhost:50055 (PID 28033)
+Started node on localhost:50056 (PID 28034)
+
+All iterations passed successfully, verifying code for nicely following quorum consensus

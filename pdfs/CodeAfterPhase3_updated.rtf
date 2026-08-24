@@ -1,0 +1,1969 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red157\green0\blue210;\red255\green255\blue255;\red24\green24\blue24;
+\red11\green34\blue86;\red32\green108\blue135;\red109\green51\blue215;\red24\green26\blue30;\red19\green118\blue70;
+\red194\green11\blue35;\red45\green45\blue45;\red101\green76\blue29;\red0\green0\blue255;\red91\green100\blue110;
+\red157\green0\blue210;\red11\green34\blue86;\red24\green24\blue24;\red32\green108\blue135;\red24\green26\blue30;
+\red0\green0\blue0;\red194\green11\blue35;\red109\green51\blue215;\red129\green40\blue2;\red19\green118\blue70;
+\red91\green100\blue110;\red10\green58\blue158;\red129\green40\blue2;\red220\green0\blue5;\red144\green1\blue18;
+\red0\green0\blue109;\red15\green112\blue1;\red230\green0\blue6;\red10\green58\blue158;\red230\green0\blue6;
+}
+{\*\expandedcolortbl;;\cssrgb\c68627\c0\c85882;\cssrgb\c100000\c100000\c100000;\cssrgb\c12549\c12549\c12549;
+\cssrgb\c3922\c18824\c41176;\cssrgb\c14902\c49804\c60000;\cssrgb\c50980\c31373\c87451;\cssrgb\c12157\c13725\c15686;\cssrgb\c3529\c52549\c34510;
+\cssrgb\c81176\c13333\c18039;\cssrgb\c23137\c23137\c23137;\cssrgb\c47451\c36863\c14902;\cssrgb\c0\c0\c100000;\cssrgb\c43137\c46667\c50588;
+\cssrgb\c68627\c0\c85882;\cssrgb\c3922\c18824\c41176;\cssrgb\c12549\c12549\c12549;\cssrgb\c14902\c49804\c60000;\cssrgb\c12157\c13725\c15686;
+\cssrgb\c0\c0\c0;\cssrgb\c81176\c13333\c18039;\cssrgb\c50980\c31373\c87451;\cssrgb\c58431\c21961\c0;\cssrgb\c3529\c52549\c34510;
+\cssrgb\c43137\c46667\c50588;\cssrgb\c1961\c31373\c68235;\cssrgb\c58431\c21961\c0;\cssrgb\c89804\c0\c0;\cssrgb\c63922\c8235\c8235;
+\cssrgb\c0\c6275\c50196;\cssrgb\c0\c50196\c0;\cssrgb\c93333\c0\c0;\cssrgb\c1961\c31373\c68235;\cssrgb\c93333\c0\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25400\viewh13540\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 Folder Structure:
+\f1\b0 \
+\
+Kv-store\
+	- bulid\
+	- proto\
+		- - kv.proto\
+	- src\
+		- - server.cpp\
+		- - client.cpp\
+		- - storage_engine.cpp\
+		- - storage_engine.h\
+		- - hash_ring.h\
+		- - hash_ring.cpp\
+	- tests\
+		- - client_server_test.cpp\
+		- - storage_engine_test.cpp\
+		- - hash_ring_test.cpp\
+		- - cluster_client_test.cpp\
+		- - replication_test.cpp\
+		- - fault_tolerance_test.cpp\
+	- CMakeLists.txt\
+	- cluster.conf\
+	- logs\
+		- - (six log files for six nodes)\
+		- - pids.txt\
+	- scripts\
+		- - start_cluster.sh\
+		- - stop_cluster.sh\
+		- - kill_node.sh\
+\
+\
+\
+
+\f0\b Codes:\
+
+\f1\b0 \
+
+\f0\b kv.proto:
+\f1\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf2 \cb3 \expnd0\expndtw0\kerning0
+syntax\cf4  = \cf5 "proto3"\cf4 ;\cb1 \
+\
+\cf2 \cb3 package\cf4  \cf6 kvstore\cf4 ;\cb1 \
+\
+\cf2 \cb3 service\cf4  \cf6 KeyValueStore\cf4  \{\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 Get\cf4 (\cf6 GetRequest\cf4 ) \cf2 returns\cf4  (\cf6 GetResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 Put\cf4 (\cf6 PutRequest\cf4 ) \cf2 returns\cf4  (\cf6 PutResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 Delete\cf4 (\cf6 DeleteRequest\cf4 ) \cf2 returns\cf4  (\cf6 DeleteResponse\cf4 );\cb1 \
+\
+\cb3   \cf2 rpc\cf4  \cf7 ReplicateGet\cf4 (\cf6 ReplicateGetRequest\cf4 ) \cf2 returns\cf4  (\cf6 ReplicateGetResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 ReplicatePut\cf4 (\cf6 ReplicatePutRequest\cf4 ) \cf2 returns\cf4  (\cf6 ReplicatePutResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 ReplicateDelete\cf4 (\cf6 ReplicateDeleteRequest\cf4 ) \cf2 returns\cf4  (\cf6 ReplicateDeleteResponse\cf4 );\cb1 \
+\
+\cb3   \cf2 rpc\cf4  \cf7 DebugOwner\cf4 (\cf6 DebugOwnerRequest\cf4 ) \cf2 returns\cf4  (\cf6 DebugOwnerResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 DebugPreferenceList\cf4 (\cf6 DebugPreferenceListRequest\cf4 ) \cf2 returns\cf4  (\cf6 DebugPreferenceListResponse\cf4 );\cb1 \
+\cb3   \cf2 rpc\cf4  \cf7 DebugLocalGet\cf4 (\cf6 DebugLocalGetRequest\cf4 ) \cf2 returns\cf4  (\cf6 DebugLocalGetResponse\cf4 );\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 GetRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 GetResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 found\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 bytes\cf4  \cf8 value\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 PutRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 bytes\cf4  \cf8 value\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 PutResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 success\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 DeleteRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 DeleteResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 success\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 DebugOwnerRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 DebugOwnerResponse\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 owner_address\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 ReplicateGetRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 ReplicateGetResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 found\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 bytes\cf4  \cf8 value\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3   \cf6 uint64\cf4  \cf8 timestamp\cf4  = \cf9 3\cf4 ;\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 is_tombstone\cf4  = \cf9 4\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 ReplicatePutRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 bytes\cf4  \cf8 value\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3   \cf6 uint64\cf4  \cf8 timestamp\cf4  = \cf9 3\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 ReplicatePutResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 success\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 ReplicateDeleteRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 uint64\cf4  \cf8 timestamp\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 ReplicateDeleteResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 success\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 DebugPreferenceListRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 DebugPreferenceListResponse\cf4  \{\cb1 \
+\cb3   \cf10 repeated\cf4  \cf6 string\cf4  \cf8 nodes\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 message\cf4  \cf6 DebugLocalGetRequest\cf4  \{\cb1 \
+\cb3   \cf6 string\cf4  \cf8 key\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cf2 \cb3 message\cf4  \cf6 DebugLocalGetResponse\cf4  \{\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 exists\cf4  = \cf9 1\cf4 ;\cb1 \
+\cb3   \cf6 bool\cf4  \cf8 is_tombstone\cf4  = \cf9 2\cf4 ;\cb1 \
+\cb3   \cf6 bytes\cf4  \cf8 value\cf4  = \cf9 3\cf4 ;\cb1 \
+\cb3   \cf6 uint64\cf4  \cf8 timestamp\cf4  = \cf9 4\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 CMakeLists.txt:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf12 \cb3 cmake_minimum_required\cf4 (\cf6 VERSION\cf4  \cf5 3.16\cf4 )\cb1 \
+\cf12 \cb3 project\cf4 (KeyValueStore \cf13 CXX\cf4 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # Force the C++17 standard required by gRPC 1.70+\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 set\cf4 (\cf6 CMAKE_CXX_STANDARD\cf4  17)\cb1 \
+\cf12 \cb3 set\cf4 (\cf6 CMAKE_CXX_STANDARD_REQUIRED\cf4  \cf13 ON\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 1. Locate the gRPC and Protobuf packages installed in your local directory\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 find_package\cf4 (\cf5 Protobuf\cf4  \cf5 CONFIG\cf4  \cf5 REQUIRED\cf4 )\cb1 \
+\cf12 \cb3 find_package\cf4 (\cf5 gRPC\cf4  \cf5 CONFIG\cf4  \cf5 REQUIRED\cf4 )\cb1 \
+\cf12 \cb3 find_package\cf4 (\cf5 Threads\cf4  \cf5 REQUIRED\cf4 ) \cf14 # Required for safe multi-threaded networking\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # Paths where the compiler will generate the stub files on the fly\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 set\cf4 (proto_srcs \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 /kv.pb.cc"\cf4 )\cb1 \
+\cf12 \cb3 set\cf4 (proto_hdrs \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 /kv.pb.h"\cf4 )\cb1 \
+\cf12 \cb3 set\cf4 (grpc_srcs \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 /kv.grpc.pb.cc"\cf4 )\cb1 \
+\cf12 \cb3 set\cf4 (grpc_hdrs \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 /kv.grpc.pb.h"\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 2. Automation: Tell CMake how to compile proto/kv.proto into C++ classes\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_custom_command\cf4 (\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf12 OUTPUT\cf4  \cf5 "\cf8 $\{proto_srcs\}\cf5 "\cf4  \cf5 "\cf8 $\{proto_hdrs\}\cf5 "\cf4  \cf5 "\cf8 $\{grpc_srcs\}\cf5 "\cf4  \cf5 "\cf8 $\{grpc_hdrs\}\cf5 "\cf4 \cb1 \
+\cb3     \cf12 COMMAND\cf4  \cf5 protobuf::protoc\cf4                                       \cf14 # Clean modern target\cf4 \cb1 \
+\cb3     \cf5 ARGS\cf4  \cf5 --cpp_out\cf4  \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 "\cf4 \cb1 \
+\cb3          \cf5 --grpc_out\cf4  \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 "\cf4 \cb1 \
+\cb3          \cf5 --plugin=protoc-gen-grpc=$<TARGET_FILE:gRPC::grpc_cpp_plugin>\cf4  \cf14 # Safe Generator Expression\cf4 \cb1 \
+\cb3          \cf5 -I\cf4  \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_SOURCE_DIR\cf8 \}\cf5 /proto"\cf4 \cb1 \
+\cb3          \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_SOURCE_DIR\cf8 \}\cf5 /proto/kv.proto"\cf4 \cb1 \
+\cb3     \cf6 DEPENDS\cf4  \cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_SOURCE_DIR\cf8 \}\cf5 /proto/kv.proto"\cf4 \cb1 \
+\cb3 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # Allow our files to find the auto-generated headers\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 include_directories\cf4 (\cf5 "\cf8 $\{\cf6 CMAKE_CURRENT_BINARY_DIR\cf8 \}\cf5 "\cf4  \cf5 src\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 3. Compile the auto-generated Proto files into a single reusable library\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_library\cf4 (\cf5 kv_grpc_proto\cf4  \cf8 $\{grpc_srcs\}\cf4  \cf8 $\{proto_srcs\}\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 kv_grpc_proto\cf4  \cf5 gRPC::grpc++\cf4  \cf5 protobuf::libprotobuf\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 4. Define the core Storage Engine and Hash Ring libraries\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_library\cf4 (\cf5 storage_engine\cf4  \cf5 src/storage_engine.cpp\cf4  \cf5 src/storage_engine.h\cf4 )\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # --- Hash Ring Library ---\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_library\cf4 (\cf5 hash_ring\cf4  \cf5 src/hash_ring.cpp\cf4  \cf5 src/hash_ring.h\cf4 )\cb1 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # Define Sanitizer Flags\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 set\cf4 (SANITIZER_FLAGS \cf5 "-fsanitize=thread"\cf4  \cf5 "-g"\cf4  \cf5 "-O1"\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 5. Build the Server executable\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 kv_server\cf4  \cf5 src/server.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 kv_server\cf4  \cf5 storage_engine\cf4  \cf5 hash_ring\cf4  \cf5 kv_grpc_proto\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 6. Build the Client executable\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 kv_client\cf4  \cf5 src/client.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 kv_client\cf4  \cf5 kv_grpc_proto\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 7. Build the Storage Engine test executable\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 storage_engine_test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf5 tests/storage_engine_test.cpp\cf4 \cb1 \
+\cb3 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 storage_engine_test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 PRIVATE\cf4 \cb1 \
+\cb3         \cf5 storage_engine\cf4 \cb1 \
+\cb3         \cf5 Threads::Threads\cf4 \cb1 \
+\cb3 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 target_compile_options\cf4 (\cf5 storage_engine_test\cf4  \cf6 PRIVATE\cf4  \cf8 $\{SANITIZER_FLAGS\}\cf4 )\cb1 \
+\cf12 \cb3 target_link_options\cf4 (\cf5 storage_engine_test\cf4  \cf6 PRIVATE\cf4  \cf8 $\{SANITIZER_FLAGS\}\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 8. Build the Client-Server test executable\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 client_server_test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf5 tests/client_server_test.cpp\cf4 \cb1 \
+\cb3 )\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 client_server_test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 PRIVATE\cf4 \cb1 \
+\cb3         \cf5 kv_grpc_proto\cf4 \cb1 \
+\cb3         \cf5 Threads::Threads\cf4 \cb1 \
+\cb3 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 9. Hash Ring Test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 hash_ring_test\cf4  \cf5 tests/hash_ring_test.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 hash_ring_test\cf4  \cf6 PRIVATE\cf4  \cf5 hash_ring\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\cf12 \cb3 target_compile_options\cf4 (\cf5 hash_ring_test\cf4  \cf6 PRIVATE\cf4  \cf8 $\{SANITIZER_FLAGS\}\cf4 )\cb1 \
+\cf12 \cb3 target_link_options\cf4 (\cf5 hash_ring_test\cf4  \cf6 PRIVATE\cf4  \cf8 $\{SANITIZER_FLAGS\}\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 10. Cluster Client Test\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 cluster_client_test\cf4  \cf5 tests/cluster_client_test.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 cluster_client_test\cf4  \cf6 PRIVATE\cf4  \cf5 kv_grpc_proto\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 # 11. Replication and quorum tests\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 add_executable\cf4 (\cf5 replication_test\cf4  \cf5 tests/replication_test.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 replication_test\cf4  \cf6 PRIVATE\cf4  \cf5 kv_grpc_proto\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\
+\cf12 \cb3 add_executable\cf4 (\cf5 fault_tolerance_test\cf4  \cf5 tests/fault_tolerance_test.cpp\cf4 )\cb1 \
+\cf12 \cb3 target_link_libraries\cf4 (\cf5 fault_tolerance_test\cf4  \cf6 PRIVATE\cf4  \cf5 kv_grpc_proto\cf4  \cf5 Threads::Threads\cf4 )\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 SRC:\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf11 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 server.cpp:
+\f2\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf15 \cb3 \outl0\strokewidth0 \strokec15 \
+#include\cf13 \strokec13  \cf16 \strokec16 <grpcpp/grpcpp.h>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 "storage_engine.h"\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 "hash_ring.h"\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 "kv.grpc.pb.h"\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <iostream>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <csignal>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <atomic>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <thread>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <chrono>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <fstream>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf16 \strokec16 <future>\cf17 \cb1 \strokec17 \
+\
+\
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf19 \strokec19 unique_ptr\cf17 \strokec20 <\cf18 \strokec18 grpc\cf17 \strokec17 ::\cf19 \strokec19 Server\cf17 \strokec20 >\strokec17  \cf19 \strokec19 server\cf17 \strokec17 ;\cb1 \
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 atomic\cf17 \strokec17 <\cf21 \strokec21 bool\cf17 \strokec17 > \cf19 \strokec19 shutdown_requested\cf17 \strokec17 (\cf18 \strokec18 false\cf17 \strokec17 );\cb1 \
+\
+\cf21 \cb3 \strokec21 struct\cf19 \strokec19  \cf18 \strokec18 GetReply\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf21 \strokec21 bool\cf19 \strokec19  ok;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf21 \strokec21 bool\cf19 \strokec19  found;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  value;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf18 \strokec18 uint64_t\cf19 \strokec19  timestamp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf21 \strokec21 bool\cf19 \strokec19  is_tombstone;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19 \};\cf17 \cb1 \strokec17 \
+\
+\cf21 \cb3 \strokec21 void\cf17 \strokec17  \cf22 \strokec22 SignalHandler\cf17 \strokec17 (\cf21 \strokec21 int\cf17 \strokec17  \cf23 \strokec23 signal\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf19 \strokec19 shutdown_requested\cf17 \strokec17 .\cf22 \strokec22 store\cf17 \strokec17 (\cf13 \strokec13 true\cf17 \strokec17 );\cb1 \
+\cb3 \}\cb1 \
+\
+\cf18 \cb3 \strokec18 uint64_t\cf17 \strokec17  \cf22 \strokec22 NowMicros\cf17 \strokec17 () \{\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf22 \strokec22 duration_cast\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 microseconds\cf17 \strokec17 >(\cb1 \
+\cb3         \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 system_clock\cf17 \strokec17 ::\cf22 \strokec22 now\cf17 \strokec17 ().\cf22 \strokec22 time_since_epoch\cf17 \strokec17 ()\cb1 \
+\cb3     ).\cf22 \strokec22 count\cf17 \strokec17 ();\cb1 \
+\cb3 \}\cb1 \
+\
+\cf21 \cb3 \strokec21 class\cf19 \strokec19  \cf18 \strokec18 KVServiceImpl\cf19 \strokec19  : \cf21 \strokec21 public\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 KeyValueStore\cf19 \strokec19 ::\cf18 \strokec18 Service\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \cf21 \strokec21 public:\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf13 \strokec13 static\cf19 \strokec19  \cf13 \strokec13 constexpr\cf19 \strokec19  \cf21 \strokec21 int\cf19 \strokec19  kN \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 3\cf19 \strokec19 ;\cf25 \strokec25   // Replication factor\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf13 \strokec13 static\cf19 \strokec19  \cf13 \strokec13 constexpr\cf19 \strokec19  \cf21 \strokec21 int\cf19 \strokec19  kR \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 2\cf19 \strokec19 ;\cf25 \strokec25   // read quorum\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf13 \strokec13 static\cf19 \strokec19  \cf13 \strokec13 constexpr\cf19 \strokec19  \cf21 \strokec21 int\cf19 \strokec19  kW \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 2\cf19 \strokec19 ;\cf25 \strokec25   // write quorum\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25         // store self address, peer stubs, and ring\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf22 \strokec22 KVServiceImpl\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 self_address\cf19 \strokec19 , \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19 >\cf13 \strokec13 &\cf19 \strokec19  \cf23 \strokec23 all_nodes\cf19 \strokec19 )\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19          : self_address_(\cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 move\cf19 \strokec19 (self_address)) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf13 \strokec13 const\cf19 \strokec19  \cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  addr: \cf23 \strokec23 all_nodes\cf19 \strokec19 ) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 ring_.\cf22 \strokec22 AddNode\cf19 \strokec19 (addr);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (addr \cf22 \strokec22 !=\cf19 \strokec19  self_address_) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf21 \strokec21 auto\cf19 \strokec19  channel \cf17 \strokec20 =\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 CreateChannel\cf19 \strokec19 (addr, \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 InsecureChannelCredentials\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     peer_stubs_\cf22 \strokec22 [\cf19 \strokec19 addr\cf22 \strokec22 ]\cf19 \strokec19  \cf22 \strokec22 =\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 KeyValueStore\cf19 \strokec19 ::\cf22 \strokec22 NewStub\cf19 \strokec19 (channel);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 "Node "\cf19 \strokec19  \cf22 \strokec22 <<\cf19 \strokec19  self_address_ \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 " ready. Cluster size: "\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                   \cf22 \strokec22 <<\cf19 \strokec19  \cf23 \strokec23 all_nodes\cf19 \strokec19 .\cf22 \strokec22 size\cf19 \strokec19 () \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 ". N: "\cf19 \strokec19  \cf22 \strokec22 <<\cf19 \strokec19  kN \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 ", W: "\cf19 \strokec19  \cf22 \strokec22 <<\cf19 \strokec19  kW \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 " and R: "\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                   \cf22 \strokec22 <<\cf19 \strokec19  kR \cf22 \strokec22 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         grpc::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 Put\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 uint64_t\cf19 \strokec19  timestamp \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 NowMicros\cf19 \strokec19 ();\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19 > pref \cf17 \strokec20 =\cf19 \strokec19  ring_.\cf22 \strokec22 GetPreferenceList\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), kN);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 int\cf19 \strokec19  ack \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 0\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 future\cf19 \strokec19 <\cf21 \strokec21 bool\cf19 \strokec19 >> futures;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  node: pref) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (node \cf17 \strokec20 ==\cf19 \strokec19  self_address_) \{    \cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     storage_.\cf22 \strokec22 Put\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), request->\cf22 \strokec22 value\cf19 \strokec19 (), timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     ack\cf17 \strokec20 ++\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 continue\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 futures.\cf22 \strokec22 push_back\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 async\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 launch\cf19 \strokec19 ::async, [\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf26 \cb3 \strokec26 this\cf19 \cb3 \strokec19 , node, key \cf17 \strokec20 =\cf19 \strokec19  request->\cf22 \strokec22 key\cf19 \strokec19 (), value \cf17 \strokec20 =\cf19 \strokec19  request->\cf22 \strokec22 value\cf19 \strokec19 (), timestamp\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 ] () \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 return\cf19 \strokec19  \cf22 \strokec22 SendReplicatePut\cf19 \strokec19 (node, key, value, timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  f: futures) \cf15 \strokec15 if\cf19 \strokec19 (f.\cf22 \strokec22 get\cf19 \strokec19 ()) ack\cf17 \strokec20 ++\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_success\cf19 \strokec19 (ack \cf17 \strokec20 >=\cf19 \strokec19  kW);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (ack \cf17 \strokec20 >=\cf19 \strokec19  kW) \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 Status\cf19 \strokec19 (\cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 StatusCode\cf19 \strokec19 ::UNAVAILABLE, \cf16 \strokec16 "Failed to reach write quorum."\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 ReplicatePut\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicatePutRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicatePutResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             storage_.\cf22 \strokec22 Put\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), request->\cf22 \strokec22 value\cf19 \strokec19 (), request->\cf22 \strokec22 timestamp\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_success\cf19 \strokec19 (\cf13 \strokec13 true\cf19 \strokec19 );\cf25 \strokec25   // ack means put is processed, whether it is done or not\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 Get\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  pref \cf17 \strokec20 =\cf19 \strokec19  ring_.\cf22 \strokec22 GetPreferenceList\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), kN);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 GetReply\cf19 \strokec19 > replies;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 future\cf19 \strokec19 <\cf18 \strokec18 GetReply\cf19 \strokec19 >> futures;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  node: pref) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (node \cf17 \strokec20 ==\cf19 \strokec19  self_address_) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf21 \strokec21 auto\cf19 \strokec19  val \cf17 \strokec20 =\cf19 \strokec19  storage_.\cf22 \strokec22 GetVersioned\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 if\cf19 \strokec19  (val.\cf22 \strokec22 has_value\cf19 \strokec19 ()) replies.\cf22 \strokec22 push_back\cf19 \strokec19 (\{\cf13 \strokec13 true\cf19 \strokec19 , \cf13 \strokec13 true\cf19 \strokec19 , val->value, val->timestamp, val->is_tombstone\});\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 else\cf19 \strokec19  replies.\cf22 \strokec22 push_back\cf19 \strokec19 (\{\cf13 \strokec13 true\cf19 \strokec19 , \cf13 \strokec13 false\cf19 \strokec19 , \cf16 \strokec16 ""\cf19 \strokec19 , \cf24 \strokec24 0\cf19 \strokec19 , \cf13 \strokec13 false\cf19 \strokec19 \});\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 continue\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 futures.\cf22 \strokec22 push_back\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 async\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 launch\cf19 \strokec19 ::async, [\cf26 \cb3 \strokec26 this\cf19 \cb3 \strokec19 , \cf23 \strokec23 node\cf19 \strokec19 , \cf23 \strokec23 key\cf19 \strokec19  \cf17 \strokec20 =\cf19 \strokec19  request->\cf22 \strokec22 key\cf19 \strokec19 ()] () \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 return\cf19 \strokec19  \cf22 \strokec22 SendReplicateGet\cf19 \strokec19 (node, key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  f: futures) replies.\cf22 \strokec22 push_back\cf19 \strokec19 (f.\cf22 \strokec22 get\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 int\cf19 \strokec19  responded \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 0\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 bool\cf19 \strokec19  found \cf17 \strokec20 =\cf19 \strokec19  \cf13 \strokec13 false\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 GetReply\cf19 \strokec19  winner\{\};\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  r: replies) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (\cf17 \strokec20 !\cf19 \strokec19 r.ok) \cf15 \strokec15 continue\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 responded\cf17 \strokec20 ++\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (r.found \cf17 \strokec20 &&\cf19 \strokec19  (\cf17 \strokec20 !\cf19 \strokec19 found \cf17 \strokec20 ||\cf19 \strokec19  winner.timestamp \cf17 \strokec20 <\cf19 \strokec19  r.timestamp)) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     found \cf17 \strokec20 =\cf19 \strokec19  \cf13 \strokec13 true\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     winner \cf17 \strokec20 =\cf19 \strokec19  r;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (responded \cf17 \strokec20 <\cf19 \strokec19  kR) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 Status\cf19 \strokec19 (\cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 StatusCode\cf19 \strokec19 ::UNAVAILABLE, \cf16 \strokec16 "Failed to reach read quorum"\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_found\cf19 \strokec19 (found \cf17 \strokec20 &&\cf19 \strokec19  \cf17 \strokec20 !\cf19 \strokec19 winner.is_tombstone);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (response->\cf22 \strokec22 found\cf19 \strokec19 ()) response->\cf22 \strokec22 set_value\cf19 \strokec19 (winner.value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 ReplicateGet\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateGetRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateGetResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  val \cf17 \strokec20 =\cf19 \strokec19  storage_.\cf22 \strokec22 GetVersioned\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_found\cf19 \strokec19 (val.\cf22 \strokec22 has_value\cf19 \strokec19 ()); \cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (\cf17 \strokec20 !\cf19 \strokec19 val.\cf22 \strokec22 has_value\cf19 \strokec19 ()) \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_value\cf19 \strokec19 (val->value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_timestamp\cf19 \strokec19 (val->timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_is_tombstone\cf19 \strokec19 (val->is_tombstone);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 Delete\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  timestamp \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 NowMicros\cf19 \strokec19 ();\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  pref \cf17 \strokec20 =\cf19 \strokec19  ring_.\cf22 \strokec22 GetPreferenceList\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), kN);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 int\cf19 \strokec19  ack \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 0\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 future\cf19 \strokec19 <\cf21 \strokec21 bool\cf19 \strokec19 >> futures;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  node: pref) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf15 \strokec15 if\cf19 \strokec19  (node \cf17 \strokec20 ==\cf19 \strokec19  self_address_) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     storage_.\cf22 \strokec22 Delete\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     ack\cf17 \strokec20 ++\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 continue\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 futures.\cf22 \strokec22 push_back\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 async\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 launch\cf19 \strokec19 ::async, [\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf26 \cb3 \strokec26 this\cf19 \cb3 \strokec19 , node, key \cf17 \strokec20 =\cf19 \strokec19  request->\cf22 \strokec22 key\cf19 \strokec19 (), timestamp\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 ] () \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                     \cf15 \strokec15 return\cf19 \strokec19  \cf22 \strokec22 SendReplicateDelete\cf19 \strokec19 (node, key, timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \}));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  f: futures) \cf15 \strokec15 if\cf19 \strokec19 (f.\cf22 \strokec22 get\cf19 \strokec19 ()) ack\cf17 \strokec20 ++\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_success\cf19 \strokec19 (ack \cf17 \strokec20 >=\cf19 \strokec19  kW);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (ack \cf17 \strokec20 >=\cf19 \strokec19  kW) \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 Status\cf19 \strokec19 (\cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 StatusCode\cf19 \strokec19 ::UNAVAILABLE, \cf16 \strokec16 "Failed to reach write quorum"\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 ReplicateDelete\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateDeleteRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateDeleteResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             storage_.\cf22 \strokec22 Delete\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), request->\cf22 \strokec22 timestamp\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_success\cf19 \strokec19 (\cf13 \strokec13 true\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 DebugOwner\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugOwnerRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugOwnerResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_owner_address\cf19 \strokec19 (ring_.\cf22 \strokec22 GetNode\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 ()));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 DebugPreferenceList\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugPreferenceListRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugPreferenceListResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  node: ring_.\cf22 \strokec22 GetPreferenceList\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 (), kN)) response->\cf22 \strokec22 add_nodes\cf19 \strokec19 (node);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19  \cf22 \strokec22 DebugLocalGet\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ServerContext\cf13 \strokec13 *\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf13 \strokec13 const\cf19 \strokec19  \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugLocalGetRequest\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 request\cf19 \strokec19 ,\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugLocalGetResponse\cf13 \strokec13 *\cf19 \strokec19  \cf23 \strokec23 response\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ) \cf13 \strokec13 override\cf19 \strokec19  \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  val \cf17 \strokec20 =\cf19 \strokec19  storage_.\cf22 \strokec22 GetVersioned\cf19 \strokec19 (request->\cf22 \strokec22 key\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_exists\cf19 \strokec19 (val.\cf22 \strokec22 has_value\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19  (\cf17 \strokec20 !\cf19 \strokec19 val.\cf22 \strokec22 has_value\cf19 \strokec19 ()) \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_value\cf19 \strokec19 (val->value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_timestamp\cf19 \strokec19 (val->timestamp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             response->\cf22 \strokec22 set_is_tombstone\cf19 \strokec19 (val->is_tombstone);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 Status\cf19 \strokec19 ::OK;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19     \cf21 \strokec21 private:\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 StorageEngine\cf19 \strokec19  storage_;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 unordered_map\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19 , \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 unique_ptr\cf19 \strokec19 <\cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 KeyValueStore\cf19 \strokec19 ::\cf18 \strokec18 Stub\cf19 \strokec19 >> peer_stubs_;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 ConsistentHashRing\cf19 \strokec19  ring_;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  self_address_;\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf21 \strokec21 bool\cf19 \strokec19  \cf22 \strokec22 SendReplicatePut\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 node\cf19 \strokec19 , \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 key\cf19 \strokec19 , \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 value\cf19 \strokec19 , \cf18 \strokec18 uint64_t\cf19 \strokec19  \cf23 \strokec23 timestamp\cf19 \strokec19 ) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             ctx.\cf22 \strokec22 set_deadline\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 system_clock\cf19 \strokec19 ::\cf22 \strokec22 now\cf19 \strokec19 () \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 milliseconds\cf19 \strokec19 (\cf24 \strokec24 2000\cf19 \strokec19 )\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicatePutRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicatePutResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_key\cf19 \strokec19 (\cf23 \strokec23 key\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_value\cf19 \strokec19 (\cf23 \strokec23 value\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_timestamp\cf19 \strokec19 (\cf23 \strokec23 timestamp\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  peer_stubs_.\cf22 \strokec22 at\cf19 \strokec19 (\cf23 \strokec23 node\cf19 \strokec19 )\cf22 \strokec22 ->ReplicatePut\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  (status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 success\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf18 \strokec18 GetReply\cf19 \strokec19  \cf22 \strokec22 SendReplicateGet\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 node\cf19 \strokec19 , \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 key\cf19 \strokec19 ) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             ctx.\cf22 \strokec22 set_deadline\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 system_clock\cf19 \strokec19 ::\cf22 \strokec22 now\cf19 \strokec19 () \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 milliseconds\cf19 \strokec19 (\cf24 \strokec24 2000\cf19 \strokec19 ));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateGetRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_key\cf19 \strokec19 (\cf23 \strokec23 key\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateGetResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  peer_stubs_.\cf22 \strokec22 at\cf19 \strokec19 (\cf23 \strokec23 node\cf19 \strokec19 )\cf22 \strokec22 ->ReplicateGet\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 if\cf19 \strokec19 (\cf17 \strokec20 !\cf19 \strokec19 status.\cf22 \strokec22 ok\cf19 \strokec19 ()) \cf15 \strokec15 return\cf19 \strokec19  \{\cf13 \strokec13 false\cf19 \strokec19 , \cf13 \strokec13 false\cf19 \strokec19 , \cf16 \strokec16 ""\cf19 \strokec19 , \cf24 \strokec24 0\cf19 \strokec19 , \cf13 \strokec13 false\cf19 \strokec19 \};\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  \{\cf13 \strokec13 true\cf19 \strokec19 , resp.\cf22 \strokec22 found\cf19 \strokec19 (), resp.\cf22 \strokec22 value\cf19 \strokec19 (), resp.\cf22 \strokec22 timestamp\cf19 \strokec19 (), resp.\cf22 \strokec22 is_tombstone\cf19 \strokec19 ()\};\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \cf21 \strokec21 bool\cf19 \strokec19  \cf22 \strokec22 SendReplicateDelete\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 node\cf19 \strokec19 , \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  \cf23 \strokec23 key\cf19 \strokec19 , \cf18 \strokec18 uint64_t\cf19 \strokec19  \cf23 \strokec23 timestamp\cf19 \strokec19 ) \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             ctx.\cf22 \strokec22 set_deadline\cf19 \strokec19 (\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 system_clock\cf19 \strokec19 ::\cf22 \strokec22 now\cf19 \strokec19 () \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 chrono\cf19 \strokec19 ::\cf18 \strokec18 milliseconds\cf19 \strokec19 (\cf24 \strokec24 2000\cf19 \strokec19 ));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateDeleteRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_key\cf19 \strokec19 (\cf23 \strokec23 key\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             req.\cf22 \strokec22 set_timestamp\cf19 \strokec19 (\cf23 \strokec23 timestamp\cf19 \strokec19 );\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 ReplicateDeleteResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  peer_stubs_.\cf22 \strokec22 at\cf19 \strokec19 (\cf23 \strokec23 node\cf19 \strokec19 )\cf22 \strokec22 ->ReplicateDelete\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 return\cf19 \strokec19  status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 success\cf19 \strokec19 ();\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19 \};\cf17 \cb1 \strokec17 \
+\
+\
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 > \cf22 \strokec22 ExtractNodes\cf17 \strokec17 (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 path\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 > \cf19 \strokec19 nodes\cf17 \strokec17 ;\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 ifstream\cf17 \strokec17  \cf19 \strokec19 file\cf17 \strokec17 (\cf23 \strokec23 path\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf19 \strokec19 line\cf17 \strokec17 ;\cb1 \
+\cb3     \cf15 \strokec15 while\cf17 \strokec17  (\cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 getline\cf17 \strokec17 (\cf19 \strokec19 file\cf17 \strokec17 , \cf19 \strokec19 line\cf17 \strokec17 )) \cf19 \strokec19 \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf15 \strokec15 if\cf19 \strokec19  (\cf17 \strokec20 !\cf19 \strokec19 line.\cf22 \strokec22 empty\cf19 \strokec19 ())\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             nodes.\cf22 \strokec22 push_back\cf19 \strokec19 (line);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \}\cf17 \cb1 \strokec17 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf19 \strokec19 nodes\cf17 \strokec17 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf21 \cb3 \strokec21 void\cf17 \strokec17  \cf22 \strokec22 RunServer\cf17 \strokec17 (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 self_address\cf17 \strokec17 , \cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 cluster_config_file\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf21 \strokec21 auto\cf17 \strokec17  \cf19 \strokec19 all_nodes\cf17 \strokec17  \strokec20 =\strokec17  \cf22 \strokec22 ExtractNodes\cf17 \strokec17 (\cf23 \strokec23 cluster_config_file\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 KVServiceImpl\cf17 \strokec17  \cf19 \strokec19 service\cf17 \strokec17 (\cf23 \strokec23 self_address\cf17 \strokec17 , \cf19 \strokec19 all_nodes\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 grpc\cf17 \strokec17 ::\cf18 \strokec18 ServerBuilder\cf17 \strokec17  \cf19 \strokec19 builder\cf17 \strokec17 ;\cb1 \
+\
+\cb3     \cf19 \strokec19 builder\cf17 \strokec17 .\cf22 \strokec22 AddListeningPort\cf17 \strokec17 (\cf23 \strokec23 self_address\cf17 \strokec17 , \cf18 \strokec18 grpc\cf17 \strokec17 ::\cf22 \strokec22 InsecureServerCredentials\cf17 \strokec17 ());\cb1 \
+\cb3     \cf19 \strokec19 builder\cf17 \strokec17 .\cf22 \strokec22 RegisterService\cf17 \strokec17 (\strokec20 &\cf19 \strokec19 service\cf17 \strokec17 );\cb1 \
+\cb3     \cf19 \strokec19 server\cf17 \strokec17  \strokec20 =\strokec17  \cf19 \strokec19 builder\cf17 \strokec17 .\cf22 \strokec22 BuildAndStart\cf17 \strokec17 ();\cb1 \
+\
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf19 \strokec19 cout\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf16 \strokec16 "Server listening on port "\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf23 \strokec23 self_address\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 endl\cf17 \strokec17 ;\cb1 \
+\
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 signal\cf17 \strokec17 (\cf13 \strokec13 SIGINT\cf17 \strokec17 , \cf22 \strokec22 SignalHandler\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 signal\cf17 \strokec17 (\cf13 \strokec13 SIGTERM\cf17 \strokec17 , \cf22 \strokec22 SignalHandler\cf17 \strokec17 );\cb1 \
+\
+\cb3     \cf15 \strokec15 while\cf17 \strokec17 (\strokec20 !\cf19 \strokec19 shutdown_requested\cf17 \strokec17 .\cf22 \strokec22 load\cf17 \strokec17 ())\cb1 \
+\cb3         \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 this_thread\cf17 \strokec17 ::\cf22 \strokec22 sleep_for\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 milliseconds\cf17 \strokec17 (\cf24 \strokec24 100\cf17 \strokec17 ));\cb1 \
+\
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf19 \strokec19 cout\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf16 \strokec16 "Shutdown requested. Shutting down gracefully."\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 endl\cf17 \strokec17 ;    \cb1 \
+\cb3     \cf19 \strokec19 server\cf17 \strokec17 ->\cf22 \strokec22 Shutdown\cf17 \strokec17 ();\cb1 \
+\cb3     \cf19 \strokec19 server\cf17 \strokec17 ->\cf22 \strokec22 Wait\cf17 \strokec17 ();\cb1 \
+\
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf19 \strokec19 cout\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf16 \strokec16 "Server shutdown complete."\cf17 \strokec17  \cf22 \strokec22 <<\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 endl\cf17 \strokec17 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf21 \cb3 \strokec21 int\cf17 \strokec17  \cf22 \strokec22 main\cf17 \strokec17 (\cf21 \strokec21 int\cf17 \strokec17  \cf23 \strokec23 argc\cf17 \strokec17 , \cf21 \strokec21 char\cf13 \strokec13 **\cf17 \strokec17  \cf23 \strokec23 argv\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf15 \strokec15 if\cf17 \strokec17  (\cf23 \strokec23 argc\cf17 \strokec17  \strokec20 <\strokec17  \cf24 \strokec24 3\cf17 \strokec17 ) \cf19 \strokec19 \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 "Usage: "\cf19 \strokec19  \cf22 \strokec22 <<\cf19 \strokec19  \cf23 \strokec23 argv\cf19 \strokec19 [\cf24 \strokec24 0\cf19 \strokec19 ] \cf22 \strokec22 <<\cf19 \strokec19  \cf16 \strokec16 " <self_address> <cluster_config_file>"\cf19 \strokec19  \cf22 \strokec22 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf15 \strokec15 return\cf19 \strokec19  \cf24 \strokec24 1\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \}\cf17 \cb1 \strokec17 \
+\
+\cb3     \cf22 \strokec22 RunServer\cf17 \strokec17 (\cf23 \strokec23 argv\cf17 \strokec17 [\cf24 \strokec24 1\cf17 \strokec17 ], \cf23 \strokec23 argv\cf17 \strokec17 [\cf24 \strokec24 2\cf17 \strokec17 ]);\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf24 \strokec24 0\cf17 \strokec17 ;\cb1 \
+\cb3 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \outl0\strokewidth0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf11 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 client.cpp:
+\f2\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf5 <grpcpp/grpcpp.h>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 "kv.grpc.pb.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <iostream>\cf4 \cb1 \
+\
+\cf10 \cb3 int\cf4  \cf7 main\cf4 (\cf10 int\cf4  \cf27 argc\cf4 , \cf10 char\cf13 **\cf4  \cf27 argv\cf4 ) \{\cb1 \
+\cf14 \cb3     // create channel and stub\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 target\cf4  = \cf5 "localhost:50051"\cf4 ;\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 channel\cf4  = \cf6 grpc\cf4 ::\cf7 CreateChannel\cf4 (\cf8 target\cf4 , \cf6 grpc\cf4 ::\cf7 InsecureChannelCredentials\cf4 ());\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 stub\cf4  = \cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf7 NewStub\cf4 (\cf8 channel\cf4 );\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // Put\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 PutRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3         req.\cf7 set_key\cf8 (\cf5 "foo"\cf8 );\cf4 \cb1 \
+\cf8 \cb3         req.\cf7 set_value\cf8 (\cf5 "bar"\cf8 );\cf4 \cb1 \
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 PutResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3         \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\
+\cf8 \cb3         \cf10 auto\cf8  status \cf4 =\cf8  stub\cf7 ->Put\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::cout \cf7 <<\cf8  \cf5 "Put success = "\cf8  \cf7 <<\cf8  resp.\cf7 success\cf8 () \cf7 <<\cf8  \cf6 std\cf8 ::\cf7 endl\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cf14 \cb3     // Get\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 GetRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 GetResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3         \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3         req.\cf7 set_key\cf8 (\cf5 "foo"\cf8 );\cf4 \cb1 \
+\
+\cf8 \cb3         \cf10 auto\cf8  status \cf4 =\cf8  stub\cf7 ->Get\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3         \cf2 if\cf8  (resp.\cf7 found\cf8 ())\cf4 \cb1 \
+\cf8 \cb3             \cf6 std\cf8 ::cout \cf7 <<\cf8  \cf5 "Got "\cf8  \cf7 <<\cf8  resp.\cf7 value\cf8 () \cf7 <<\cf8  \cf6 std\cf8 ::\cf7 endl\cf8 ;\cf4 \cb1 \
+\cf8 \cb3         \cf2 else\cf4 \cb1 \
+\cf8 \cb3             \cf6 std\cf8 ::cout \cf7 <<\cf8  \cf5 "Key not found :("\cf8  \cf7 <<\cf8  \cf6 std\cf8 ::\cf7 endl\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 return\cf4  \cf9 0\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 storage_engine.h:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf2 \cb3 #pragma\cf13  \cf28 once\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <string>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <shared_mutex>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <optional>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <unordered_map>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <cstdint>\cf4 \cb1 \
+\
+\
+\cf10 \cb3 struct\cf8  \cf6 VersionedValue\cf8  \{\cf4 \cb1 \
+\cf8 \cb3     \cf6 std\cf8 ::\cf6 string\cf8  value;\cf4 \cb1 \
+\cf8 \cb3     \cf6 uint64_t\cf8  timestamp;\cf4 \cb1 \
+\cf8 \cb3     \cf10 bool\cf8  is_tombstone;\cf4 \cb1 \
+\cf8 \cb3 \};\cf4 \cb1 \
+\
+\
+\cf10 \cb3 class\cf8  \cf6 StorageEngine\cf8  \{\cf4 \cb1 \
+\cf8 \cb3     \cf10 public:\cf4 \cb1 \
+\cf8 \cb3         \cf10 bool\cf8  \cf7 Put\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 key\cf8 , \cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 value\cf8 , \cf6 uint64_t\cf8  \cf27 timestamp\cf8 );\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 optional\cf8 <\cf6 VersionedValue\cf8 > \cf7 GetVersioned\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 key\cf8 ) \cf13 const\cf8 ;\cf4 \cb1 \
+\cf8 \cb3         \cf10 bool\cf8  \cf7 Delete\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 key\cf8 , \cf6 uint64_t\cf8  \cf27 timestamp\cf8 );\cf4 \cb1 \
+\cf8 \cb3     \cf4 \cb1 \
+\cf8 \cb3     \cf10 private:\cf4 \cb1 \
+\cf8 \cb3         \cf13 mutable\cf8  \cf6 std\cf8 ::\cf6 shared_mutex\cf8  mutex_;\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 unordered_map\cf8 <\cf6 std\cf8 ::\cf6 string\cf8 , \cf6 VersionedValue\cf8 > data_;\cf4 \cb1 \
+\cf8 \cb3 \};\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 storage_engine.cpp:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf2 \cb3 #include\cf13  \cf5 "storage_engine.h"\cf4 \cb1 \
+\
+\cf10 \cb3 bool\cf4  \cf6 StorageEngine\cf4 ::\cf7 Put\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 key\cf4 , \cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 value\cf4 , \cf6 uint64_t\cf4  \cf27 timestamp\cf4 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 unique_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 it\cf4  = \cf8 data_\cf4 .\cf7 find\cf4 (\cf27 key\cf4 );\cb1 \
+\cb3     \cf2 if\cf4  (\cf8 it\cf4  \cf7 ==\cf4  \cf8 data_\cf4 .\cf7 end\cf4 () || \cf8 it\cf7 ->\cf8 second\cf4 .\cf8 timestamp\cf4  < \cf27 timestamp\cf4 ) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         data_\cf7 [\cf27 key\cf7 ]\cf8  \cf7 =\cf8  \cf6 VersionedValue\cf8 \{\cf27 value\cf8 , \cf27 timestamp\cf8 , \cf13 false\cf8 \};\cf4 \cb1 \
+\cf8 \cb3         \cf2 return\cf8  \cf13 true\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 return\cf4  \cf13 false\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 std\cf4 ::\cf6 optional\cf4 <\cf6 VersionedValue\cf4 > \cf6 StorageEngine\cf4 ::\cf7 GetVersioned\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 key\cf4 ) \cf13 const\cf4 \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 shared_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 it\cf4  = \cf8 data_\cf4 .\cf7 find\cf4 (\cf27 key\cf4 );\cb1 \
+\cb3     \cf2 if\cf4 (\cf8 it\cf4  \cf7 ==\cf4  \cf8 data_\cf4 .\cf7 end\cf4 ())\cb1 \
+\cb3         \cf2 return\cf4  \cf6 std\cf4 ::\cf8 nullopt\cf4 ;\cb1 \
+\cb3     \cf2 else\cf4 \cb1 \
+\cb3         \cf2 return\cf4  \cf8 it\cf7 ->\cf8 second\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb3 bool\cf4  \cf6 StorageEngine\cf4 ::\cf7 Delete\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 key\cf4 , \cf6 uint64_t\cf4  \cf27 timestamp\cf4 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 unique_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 it\cf4  = \cf8 data_\cf4 .\cf7 find\cf4 (\cf27 key\cf4 );\cb1 \
+\cb3     \cf2 if\cf4  (\cf8 it\cf4  \cf7 !=\cf4  \cf8 data_\cf4 .\cf7 end\cf4 () && \cf8 it\cf7 ->\cf8 second\cf4 .\cf8 timestamp\cf4  > \cf27 timestamp\cf4 ) \cf2 return\cf4  \cf13 false\cf4 ;\cb1 \
+\cb3     \cb1 \
+\cb3     \cf8 data_\cf7 [\cf27 key\cf7 ]\cf4  \cf7 =\cf4  \cf6 VersionedValue\cf8 \{\cf5 ""\cf8 , \cf27 timestamp\cf8 , \cf13 true\cf8 \}\cf4 ;\cb1 \
+\cb3     \cf2 return\cf4  \cf13 true\cf4 ;\cb1 \
+\cb3 \}\cf11 \cb1 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 \
+hash_ring.h:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf11 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #pragma\cf13  \cf28 once\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <map>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <shared_mutex>\cf4 \cb1 \
+\
+\
+\cf10 \cb3 class\cf8  \cf6 ConsistentHashRing\cf8  \{\cf4 \cb1 \
+\cf10 \cb3 public:\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // get, add, getall, delete, static hash\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3     \cf6 std\cf8 ::\cf6 string\cf8  \cf7 GetNode\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 key\cf8 ) \cf13 const\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \cf6 std\cf8 ::\cf6 vector\cf8 <\cf6 std\cf8 ::\cf6 string\cf8 > \cf7 GetPreferenceList\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 key\cf8 , \cf10 int\cf8  \cf27 n\cf8 ) \cf13 const\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \cf10 void\cf8  \cf7 AddNode\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 node_address\cf8 );\cf4 \cb1 \
+\cf8 \cb3     \cf10 void\cf8  \cf7 RemoveNode\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 node_address\cf8 );\cf4 \cb1 \
+\cf8 \cb3     \cf6 std\cf8 ::\cf6 vector\cf8 <\cf6 std\cf8 ::\cf6 string\cf8 > \cf7 GetAllPhysicalNodes\cf8 () \cf13 const\cf8 ;\cf4 \cb1 \
+\
+\cf8 \cb3     \cf13 static\cf8  \cf6 uint64_t\cf8  \cf7 Hash\cf8 (\cf13 const\cf8  \cf6 std\cf8 ::\cf6 string\cf13 &\cf8  \cf27 input\cf8 );\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // constructor\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3     \cf13 explicit\cf8  \cf7 ConsistentHashRing\cf8 (\cf10 int\cf8  \cf27 virtual_nodes_per_physical\cf8  \cf4 =\cf8  \cf9 150\cf8 );\cf4 \cb1 \
+\
+\cf10 \cb3 private:\cf4 \cb1 \
+\cf8 \cb3     \cf10 int\cf8  virtual_nodes_per_physical_;\cf4 \cb1 \
+\cf8 \cb3     \cf6 std\cf8 ::\cf6 map\cf8 <\cf6 std\cf8 ::\cf6 uint64_t\cf8 , \cf6 std\cf8 ::\cf6 string\cf8 > ring_;\cf4 \cb1 \
+\cf8 \cb3     \cf13 mutable\cf8  \cf6 std\cf8 ::\cf6 shared_mutex\cf8  mutex_;\cf4 \cb1 \
+\cf8 \cb3 \};\cf4 \cb1 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 \
+hash_ring.cpp:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf5 "hash_ring.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <set>\cf4 \cb1 \
+\
+\cf6 \cb3 uint64_t\cf4  \cf6 ConsistentHashRing\cf4 ::\cf7 Hash\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 input\cf4 ) \{\cb1 \
+\cb3     \cf6 uint64_t\cf4  \cf8 hash\cf4  = \cf9 14695981039346656037ULL\cf4 ;\cf14      // fnv offset basis\cf4 \cb1 \
+\cb3     \cf2 for\cf4  (\cf10 unsigned\cf4  \cf10 char\cf4  \cf8 c\cf4 : \cf27 input\cf4 ) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         hash \cf4 ^=\cf8  c;\cf4 \cb1 \
+\cf8 \cb3         hash \cf4 *=\cf8  \cf9 1099511628211ULL\cf8 ;\cf14     // fnv prime\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // MurmurHash3 finalizer (avalanche mix)\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf8 hash\cf4  ^= \cf8 hash\cf4  >> \cf9 33\cf4 ;\cb1 \
+\cb3     \cf8 hash\cf4  *= \cf9 0xff51afd7ed558ccdULL\cf4 ;\cb1 \
+\cb3     \cf8 hash\cf4  ^= \cf8 hash\cf4  >> \cf9 33\cf4 ;\cb1 \
+\cb3     \cf8 hash\cf4  *= \cf9 0xc4ceb9fe1a85ec53ULL\cf4 ;\cb1 \
+\cb3     \cf8 hash\cf4  ^= \cf8 hash\cf4  >> \cf9 33\cf4 ;\cb1 \
+\
+\cb3     \cf2 return\cf4  \cf8 hash\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf6 \cb3 ConsistentHashRing\cf4 ::\cf7 ConsistentHashRing\cf4 (\cf10 int\cf4  \cf27 virtual_nodes_per_physical\cf4 ) : \cf8 virtual_nodes_per_physical_\cf4 (\cf27 virtual_nodes_per_physical\cf4 ) \cf8 \{\}\cf4 \cb1 \
+\
+\
+\cf6 \cb3 std\cf4 ::\cf6 string\cf4  \cf6 ConsistentHashRing\cf4 ::\cf7 GetNode\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 key\cf4 ) \cf13 const\cf4 \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 shared_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf2 if\cf4  (\cf8 ring_\cf4 .\cf7 empty\cf4 ())\cb1 \
+\cb3         \cf2 return\cf4  \cf5 ""\cf4 ;\cb1 \
+\cb3     \cf6 uint64_t\cf4  \cf8 h\cf4  = \cf7 Hash\cf4 (\cf27 key\cf4 );\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 it\cf4  = \cf8 ring_\cf4 .\cf7 lower_bound\cf4 (\cf8 h\cf4 );\cb1 \
+\cb3     \cf2 if\cf4  (\cf8 it\cf4  \cf7 ==\cf4  \cf8 ring_\cf4 .\cf7 end\cf4 ())\cb1 \
+\cb3         \cf8 it\cf4  \cf7 =\cf4  \cf8 ring_\cf4 .\cf7 begin\cf4 ();\cb1 \
+\cb3     \cf2 return\cf4  \cf8 it\cf7 ->\cf8 second\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf6 ConsistentHashRing\cf4 ::\cf7 AddNode\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 node_address\cf4 ) \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 unique_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf8 virtual_nodes_per_physical_\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  v_address \cf4 =\cf8  \cf27 node_address\cf8  \cf7 +\cf8  \cf5 "#"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         ring_\cf7 [Hash\cf8 (v_address)\cf7 ]\cf8  \cf7 =\cf8  \cf27 node_address\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4    \cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf6 ConsistentHashRing\cf4 ::\cf7 RemoveNode\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 node_address\cf4 ) \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 unique_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf8 virtual_nodes_per_physical_\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  v_address \cf4 =\cf8  \cf27 node_address\cf8  \cf7 +\cf8  \cf5 "#"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         ring_.\cf7 erase\cf8 (\cf7 Hash\cf8 (v_address));\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf6 \cb3 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf6 ConsistentHashRing\cf4 ::\cf7 GetAllPhysicalNodes\cf4 () \cf13 const\cf4  \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 shared_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 set\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 unique_nodes\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf13 const\cf4  \cf10 auto\cf13 &\cf4  \cf8 e\cf4 : \cf8 ring_\cf4 ) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         unique_nodes.\cf7 insert\cf8 (e.second);\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\cb3     \cf2 return\cf4  \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 >(\cf8 unique_nodes\cf4 .\cf7 begin\cf4 (), \cf8 unique_nodes\cf4 .\cf7 end\cf4 ());\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf6 \cb3 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf6 ConsistentHashRing\cf4 ::\cf7 GetPreferenceList\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 key\cf4 , \cf10 int\cf4  \cf27 n\cf4 ) \cf13 const\cf4  \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 shared_lock\cf4  \cf8 lock\cf4 (\cf8 mutex_\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 result\cf4 ;\cb1 \
+\cb3     \cf2 if\cf4 (\cf8 ring_\cf4 .\cf7 empty\cf4 ()) \cf2 return\cf4  \cf8 result\cf4 ;\cb1 \
+\
+\cb3     \cf10 auto\cf4  \cf8 it\cf4  = \cf8 ring_\cf4 .\cf7 lower_bound\cf4 (\cf7 Hash\cf4 (\cf27 key\cf4 ));\cb1 \
+\cb3     \cf6 size_t\cf4  \cf8 visited\cf4  = \cf9 0\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 set\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 next_nds\cf4 ;\cb1 \
+\cb3     \cb1 \
+\cb3     \cf2 while\cf4  (\cf8 result\cf4 .\cf7 size\cf4 () < \cf13 static_cast\cf4 <\cf6 size_t\cf4 >(\cf27 n\cf4 ) && \cf8 visited\cf4  < \cf8 ring_\cf4 .\cf7 size\cf4 ()) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf2 if\cf8  (it \cf7 ==\cf8  ring_.\cf7 end\cf8 ()) it \cf7 =\cf8  ring_.\cf7 begin\cf8 ();\cf4 \cb1 \
+\cf8 \cb3         \cf2 if\cf8 (next_nds.\cf7 insert\cf8 (it\cf7 ->\cf8 second).second) \{\cf4 \cb1 \
+\cf8 \cb3             result.\cf7 push_back\cf8 (it\cf7 ->\cf8 second);\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\cf8 \cb3         it\cf7 ++\cf8 ;\cf4 \cb1 \
+\cf8 \cb3         visited\cf4 ++\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\cb3     \cf2 return\cf4  \cf8 result\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\cb3     \cb1 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 Tests:
+\f2\b0 \cf4 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 client_server_test.cpp:
+\f2\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf29 "kv.grpc.pb.h"\cf11 \cb1 \
+\cf2 \cb3 #include\cf13  \cf29 <grpcpp/grpcpp.h>\cf11 \cb1 \
+\cf2 \cb3 #include\cf13  \cf29 <iostream>\cf11 \cb1 \
+\cf2 \cb3 #include\cf29 <thread>\cf11 \cb1 \
+\cf2 \cb3 #include\cf29 <vector>\cf11 \cb1 \
+\cf2 \cb3 #include\cf29 <cassert>\cf11 \cb1 \
+\
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 PutRequest\cf11 ;\cb1 \
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 PutResponse\cf11 ;\cb1 \
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 GetRequest\cf11 ;\cb1 \
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 GetResponse\cf11 ;\cb1 \
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 DeleteRequest\cf11 ;\cb1 \
+\cf2 \cb3 using\cf11  \cf6 kvstore\cf11 ::\cf6 DeleteResponse\cf11 ;\cb1 \
+\
+\cf13 \cb3 void\cf11  \cf12 edge_cases_test\cf11 (\cf6 kvstore\cf11 ::\cf6 KeyValueStore\cf11 ::\cf6 Stub\cf13 *\cf11  \cf30 stub\cf11 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf31 \cb3     // empty key and value (put and get)\cf11 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3     \{\cb1 \
+\cb3         \cf6 PutRequest\cf11  \cf30 req\cf11 ;\cb1 \
+\cb3         \cf6 PutResponse\cf11  \cf30 resp\cf11 ;\cb1 \
+\cb3         \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 ctx\cf11 ;\cb1 \
+\cb3         \cf30 req\cf11 .\cf12 set_key\cf11 (\cf29 ""\cf11 );\cb1 \
+\cb3         \cf30 req\cf11 .\cf12 set_value\cf11 (\cf29 ""\cf11 );\cb1 \
+\cb3         \cf13 auto\cf11  \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Put\cf11 (&\cf30 ctx\cf11 , \cf30 req\cf11 , &\cf30 resp\cf11 );\cb1 \
+\cb3         \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 () && \cf30 resp\cf11 .\cf12 success\cf11 ());\cb1 \
+\
+\cb3         \cf6 GetRequest\cf11  \cf30 g_req\cf11 ;\cb1 \
+\cb3         \cf6 GetResponse\cf11  \cf30 g_resp\cf11 ;\cb1 \
+\cb3         \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 g_ctx\cf11 ;\cb1 \
+\cb3         \cf30 g_req\cf11 .\cf12 set_key\cf11 (\cf29 ""\cf11 );\cb1 \
+\cb3         \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Get\cf11 (&\cf30 g_ctx\cf11 , \cf30 g_req\cf11 , &\cf30 g_resp\cf11 );\cb1 \
+\cb3         \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 () && \cf30 g_resp\cf11 .\cf12 found\cf11 () && \cf30 g_resp\cf11 .\cf12 value\cf11 ().\cf12 empty\cf11 ());\cb1 \
+\cb3     \}    \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf31 \cb3     // value in string in hexadecimal (put and get)\cf11 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3     \{\cb1 \
+\cb3         \cf6 PutRequest\cf11  \cf30 req\cf11 ;\cb1 \
+\cb3         \cf6 PutResponse\cf11  \cf30 resp\cf11 ;\cb1 \
+\cb3         \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 ctx\cf11 ;\cb1 \
+\cb3         \cf30 req\cf11 .\cf12 set_key\cf11 (\cf29 "binary_key"\cf11 );\cb1 \
+\cb3         \cf6 std\cf11 ::\cf6 string\cf11  \cf30 binary_payload\cf11 (\cf29 "\cf32 \\0\\x01\\x02\\x00\\x03\\xFF\cf29 "\cf11 , \cf9 6\cf11 );\cb1 \
+\cb3         \cf30 req\cf11 .\cf12 set_value\cf11 (\cf30 binary_payload\cf11 );\cb1 \
+\cb3         \cf13 auto\cf11  \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Put\cf11 (&\cf30 ctx\cf11 , \cf30 req\cf11 , &\cf30 resp\cf11 );\cb1 \
+\cb3         \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 () && \cf30 resp\cf11 .\cf12 success\cf11 ());\cb1 \
+\cb3                 \cb1 \
+\cb3         \cf6 GetRequest\cf11  \cf30 g_req\cf11 ;\cb1 \
+\cb3         \cf6 GetResponse\cf11  \cf30 g_resp\cf11 ;\cb1 \
+\cb3         \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 g_ctx\cf11 ;\cb1 \
+\cb3         \cf30 g_req\cf11 .\cf12 set_key\cf11 (\cf29 "binary_key"\cf11 );\cb1 \
+\cb3         \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Get\cf11 (&\cf30 g_ctx\cf11 , \cf30 g_req\cf11 , &\cf30 g_resp\cf11 );\cb1 \
+\cb3         \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 () && \cf30 g_resp\cf11 .\cf12 found\cf11 () && \cf30 g_resp\cf11 .\cf12 value\cf11 () \cf12 ==\cf11  \cf30 binary_payload\cf11 );\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 " [\uc0\u10003 ] Edge cases handles safely without server crashes."\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf13 \cb3 void\cf11  \cf12 concurrency_test\cf11 (\cf6 kvstore\cf11 ::\cf6 KeyValueStore\cf11 ::\cf6 Stub\cf13 *\cf11  \cf30 stub\cf11 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3     \cf6 std\cf11 ::\cf6 vector\cf11 <\cf6 std\cf11 ::\cf6 thread\cf11 > \cf30 threads\cf11 ;\cb1 \
+\cb3     \cf13 int\cf11  \cf30 num_t\cf11  = \cf9 10\cf11 ;\cb1 \
+\cb3     \cf13 int\cf11  \cf30 num_iter\cf11  = \cf9 100\cf11 ;\cb1 \
+\cb3     \cf6 std\cf11 ::\cf6 atomic\cf11 <\cf13 int\cf11 > \cf30 completed_ops\cf11 (\cf9 0\cf11 );\cb1 \
+\
+\cb3     \cf2 for\cf11  (\cf13 int\cf11  \cf30 t\cf11  = \cf9 0\cf11 ; \cf30 t\cf11  < \cf30 num_t\cf11 ; \cf30 t\cf11 ++) \{\cb1 \
+\cb3         \cf30 threads\cf11 .\cf12 emplace_back\cf11 ([\cf30 stub\cf11 , \cf30 t\cf11 , \cf30 num_iter\cf11 , &\cf30 completed_ops\cf11 ]()\{\cb1 \
+\cb3             \cf2 for\cf11  (\cf13 int\cf11  \cf30 i\cf11  = \cf9 0\cf11 ; \cf30 i\cf11  < \cf30 num_iter\cf11 ; \cf30 i\cf11 ++) \{\cb1 \
+\cb3                 \cf6 std\cf11 ::\cf6 string\cf11  \cf30 key\cf11  = \cf29 "shared_key_"\cf11  \cf12 +\cf11  \cf6 std\cf11 ::\cf12 to_string\cf11 (\cf30 i\cf11 %\cf9 3\cf11 );\cb1 \
+\cb3                 \cf6 std\cf11 ::\cf6 string\cf11  \cf30 value\cf11  = \cf29 "thread_"\cf11  \cf12 +\cf11  \cf6 std\cf11 ::\cf12 to_string\cf11 (\cf30 t\cf11 ) \cf12 +\cf11  \cf29 "_iter_"\cf11  \cf12 +\cf11  \cf6 std\cf11 ::\cf12 to_string\cf11 (\cf30 i\cf11 );\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf31 \cb3                 // put rpc\cf11 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3                 \{\cb1 \
+\cb3                     \cf6 PutRequest\cf11  \cf30 req\cf11 ;\cb1 \
+\cb3                     \cf6 PutResponse\cf11  \cf30 resp\cf11 ;\cb1 \
+\cb3                     \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 ctx\cf11 ;\cb1 \
+\cb3                     \cf30 req\cf11 .\cf12 set_key\cf11 (\cf30 key\cf11 );\cb1 \
+\cb3                     \cf30 req\cf11 .\cf12 set_value\cf11 (\cf30 value\cf11 );\cb1 \
+\cb3                     \cf13 auto\cf11  \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Put\cf11 (&\cf30 ctx\cf11 , \cf30 req\cf11 , &\cf30 resp\cf11 );\cb1 \
+\cb3                     \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 () && \cf30 resp\cf11 .\cf12 success\cf11 ());\cb1 \
+\cb3                 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf31 \cb3                 // get rpc\cf11 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3                 \{\cb1 \
+\cb3                     \cf6 GetRequest\cf11  \cf30 req\cf11 ;\cb1 \
+\cb3                     \cf6 GetResponse\cf11  \cf30 resp\cf11 ;\cb1 \
+\cb3                     \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 ctx\cf11 ;\cb1 \
+\cb3                     \cf6 std\cf11 ::\cf6 string\cf11  \cf30 key\cf11  = \cf29 "shared_key_"\cf11  \cf12 +\cf11  \cf6 std\cf11 ::\cf12 to_string\cf11 (\cf30 i\cf11 %\cf9 3\cf11 );\cb1 \
+\cb3                     \cf30 req\cf11 .\cf12 set_key\cf11 (\cf30 key\cf11 );\cb1 \
+\cb3                     \cf13 auto\cf11  \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Get\cf11 (&\cf30 ctx\cf11 , \cf30 req\cf11 , &\cf30 resp\cf11 );\cb1 \
+\cb3                     \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 ());\cb1 \
+\cb3                 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf31 \cb3                 // delete rpc few times\cf11 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3                 \{\cb1 \
+\cb3                     \cf6 DeleteRequest\cf11  \cf30 req\cf11 ;\cb1 \
+\cb3                     \cf6 DeleteResponse\cf11  \cf30 resp\cf11 ;\cb1 \
+\cb3                     \cf6 grpc\cf11 ::\cf6 ClientContext\cf11  \cf30 ctx\cf11 ;\cb1 \
+\cb3                     \cf6 std\cf11 ::\cf6 string\cf11  \cf30 key\cf11  = \cf29 "shared_key_"\cf11  \cf12 +\cf11  \cf6 std\cf11 ::\cf12 to_string\cf11 (\cf30 i\cf11 %\cf9 7\cf11 );\cb1 \
+\cb3                     \cf30 req\cf11 .\cf12 set_key\cf11 (\cf30 key\cf11 );\cb1 \
+\cb3                     \cf13 auto\cf11  \cf30 status\cf11  = \cf30 stub\cf11 ->\cf12 Delete\cf11 (&\cf30 ctx\cf11 , \cf30 req\cf11 , &\cf30 resp\cf11 );\cb1 \
+\cb3                     \cf13 assert\cf11 (\cf30 status\cf11 .\cf12 ok\cf11 ());\cb1 \
+\cb3                 \}\cb1 \
+\cb3                 \cf30 completed_ops\cf11  \cf12 +=\cf11  \cf9 3\cf11 ;\cb1 \
+\cb3             \}\cb1 \
+\cb3         \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf2 for\cf11  (\cf13 auto&\cf11  \cf30 thread\cf11  : \cf30 threads\cf11 ) \{\cb1 \
+\cb3         \cf30 thread\cf11 .\cf12 join\cf11 ();\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 " [\uc0\u10003 ] Concurrency test passed! Total RPCs executed: "\cf11  \cb1 \
+\cb3               \cf12 <<\cf11  \cf30 completed_ops\cf11 .\cf12 load\cf11 () \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf13 \cb3 int\cf11  \cf12 main\cf11 (\cf13 int\cf11  \cf30 argc\cf11 , \cf13 char**\cf11  \cf30 argv\cf11 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf11 \cb3     \cf6 std\cf11 ::\cf6 string\cf11  \cf30 target\cf11  = \cf29 "localhost:50051"\cf11 ;\cb1 \
+\cb3     \cf2 if\cf11  (\cf30 argc\cf11  > \cf9 1\cf11 ) \cf30 target\cf11  \cf12 =\cf11  \cf30 argv\cf11 [\cf9 1\cf11 ];\cb1 \
+\cb3     \cf13 auto\cf11  \cf30 channel\cf11  = \cf6 grpc\cf11 ::\cf12 CreateChannel\cf11 (\cf30 target\cf11 , \cf6 grpc\cf11 ::\cf12 InsecureChannelCredentials\cf11 ());\cb1 \
+\cb3     \cf13 auto\cf11  \cf30 stub\cf11  = \cf6 kvstore\cf11 ::\cf6 KeyValueStore\cf11 ::\cf12 NewStub\cf11 (\cf30 channel\cf11 );\cb1 \
+\
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "------------------------------------------------------"\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "            STARTING gRPC NETWORK TEST SUITE          "\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "------------------------------------------------------"\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\
+\cb3     \cf12 edge_cases_test\cf11 (\cf30 stub\cf11 .\cf12 get\cf11 ());\cb1 \
+\cb3     \cf12 concurrency_test\cf11 (\cf30 stub\cf11 .\cf12 get\cf11 ());\cb1 \
+\
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "------------------------------------------------------"\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "     NETWORK AND CONCURRENCY VERIFICATION PASSED.     "\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\cb3     \cf6 std\cf11 ::\cf30 cout\cf11  \cf12 <<\cf11  \cf29 "------------------------------------------------------"\cf11  \cf12 <<\cf11  \cf6 std\cf11 ::\cf12 endl\cf11 ;\cb1 \
+\
+\cb3     \cf2 return\cf11  \cf9 0\cf11 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf11 storage_engine_test.cpp:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf2 \cb3 #include\cf13  \cf5 "../src/storage_engine.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <cassert>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <iostream>\cf4 \cb1 \
+\cf2 \cb3 #include\cf5 <thread>\cf4 \cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_functionality\cf4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 StorageEngine\cf4  \cf8 engine\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // Get missing key gives nullopt\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (\cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "missing_string"\cf4 ) \cf7 ==\cf4  \cf6 std\cf4 ::\cf8 nullopt\cf4 );\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // put\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (\cf8 engine\cf4 .\cf7 Put\cf4 (\cf5 "num_nodes"\cf4 , \cf5 "6 nodes"\cf4 , \cf9 100\cf4 ) == \cf13 true\cf4 );\cb1 \
+\cb3     \cf10 auto\cf4  \cf8 val\cf4  = \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf4 .\cf7 has_value\cf4 ());\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 value\cf4  \cf7 ==\cf4  \cf5 "6 nodes"\cf4  && \cf8 val\cf7 ->\cf8 timestamp\cf4  == \cf9 100\cf4  && !\cf8 val\cf7 ->\cf8 is_tombstone\cf4 );\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     //old write vs new write\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (!\cf8 engine\cf4 .\cf7 Put\cf4 (\cf5 "num_nodes"\cf4 , \cf5 "7 nodes"\cf4 , \cf9 99\cf4 ));\cb1 \
+\cb3     \cf8 val\cf4  \cf7 =\cf4  \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 value\cf4  \cf7 ==\cf4  \cf5 "6 nodes"\cf4  && \cf8 val\cf7 ->\cf8 timestamp\cf4  == \cf9 100\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 engine\cf4 .\cf7 Put\cf4 (\cf5 "num_nodes"\cf4 , \cf5 "7 nodes"\cf4 , \cf9 101\cf4 ));\cb1 \
+\cb3     \cf8 val\cf4  \cf7 =\cf4  \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 value\cf4  \cf7 ==\cf4  \cf5 "7 nodes"\cf4  && \cf8 val\cf7 ->\cf8 timestamp\cf4  == \cf9 101\cf4 );\cb1 \
+\
+\cb3     \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     //new delete vs old delete\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (\cf8 engine\cf4 .\cf7 Delete\cf4 (\cf5 "num_nodes"\cf4 , \cf9 102\cf4 ));\cb1 \
+\cb3     \cf8 val\cf4  \cf7 =\cf4  \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 is_tombstone\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (!\cf8 engine\cf4 .\cf7 Delete\cf4 (\cf5 "num_nodes"\cf4 , \cf9 99\cf4 ));\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // old write vs new write\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (!\cf8 engine\cf4 .\cf7 Put\cf4 (\cf5 "num_nodes"\cf4 , \cf5 "3 nodes"\cf4 , \cf9 98\cf4 ));\cb1 \
+\cb3     \cf8 val\cf4  \cf7 =\cf4  \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 is_tombstone\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 engine\cf4 .\cf7 Put\cf4 (\cf5 "num_nodes"\cf4 , \cf5 "10 nodes"\cf4 , \cf9 150\cf4 ));\cb1 \
+\cb3     \cf8 val\cf4  \cf7 =\cf4  \cf8 engine\cf4 .\cf7 GetVersioned\cf4 (\cf5 "num_nodes"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 val\cf7 ->\cf8 value\cf4  \cf7 ==\cf4  \cf5 "10 nodes"\cf4  && !\cf8 val\cf7 ->\cf8 is_tombstone\cf4 );\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[\uc0\u10003 ] Functional validation passed successfully."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb3 void\cf4  \cf7 test_concurrency\cf4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 StorageEngine\cf4  \cf8 engine\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // fix number of threads and iterations in each thread\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 int\cf4  \cf8 num_t\cf4  = \cf9 5\cf4 ;\cb1 \
+\cb3     \cf10 int\cf4  \cf8 num_iter\cf4  = \cf9 200\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // create a vector of threads\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 thread\cf4 > \cf8 threads\cf4 ;\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "Launching "\cf4  \cf7 <<\cf4  \cf8 num_t\cf4  \cf7 <<\cf4  \cf5 " threads to hammer overlapping keys"\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // create each thread and pass it on to the threads vector using loop\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf8 num_t\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         threads.\cf7 emplace_back\cf8 ([\cf4 &\cf8 engine, num_iter, i] () \{\cf4 \cb1 \
+\cf8 \cb3             \cf2 for\cf8 (\cf10 int\cf8  j \cf4 =\cf8  \cf9 0\cf8 ; j \cf4 <\cf8  num_iter; j\cf4 ++\cf8 ) \{\cf4 \cb1 \
+\cf14 \cb3                 // create a key and value\cf4 \cb1 \
+\cf8 \cb3                 \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "shared_key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (j \cf4 %\cf8  \cf9 5\cf8 );\cf4 \cb1 \
+\cf8 \cb3                 \cf6 std\cf8 ::\cf6 string\cf8  value \cf4 =\cf8  \cf5 "thread_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i) \cf7 +\cf8  \cf5 "_iter_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (j);\cf4 \cb1 \
+\cf8 \cb3                 \cf6 uint64_t\cf8  ts \cf4 =\cf8  \cf9 100000\cf8  \cf4 +\cf8  j;                \cf4 \cb1 \
+\cf14 \cb3                 // put a key value\cf4 \cb1 \
+\cf8 \cb3                 engine.\cf7 Put\cf8 (key, value, ts);\cf4 \cb1 \
+\
+\cf14 \cb3                 // get it\cf4 \cb1 \
+\cf8 \cb3                 \cf10 auto\cf8  res \cf4 =\cf8  engine.\cf7 GetVersioned\cf8 (key);\cf4 \cb1 \
+\
+\cf14 \cb3                 // delete it every 7 th iteration\cf4 \cb1 \
+\cf8 \cb3                 \cf2 if\cf8 (j \cf4 %\cf8  \cf9 7\cf8  \cf4 ==\cf8  \cf9 0\cf8 )\cf4 \cb1 \
+\cf8 \cb3                     engine.\cf7 Delete\cf8 (key, ts);\cf4 \cb1 \
+\cf8 \cb3             \}\cf4 \cb1 \
+\cf8 \cb3         \});\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cf14 \cb3     // join all threads one by one using loop\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 for\cf4  (\cf10 auto\cf13 &\cf4  \cf8 t\cf4 : \cf8 threads\cf4 )\cb1 \
+\cb3         \cf8 t\cf4 .\cf7 join\cf4 ();\cb1 \
+\cb3     \cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[\uc0\u10003 ] Concurrency validation passed successfully."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb3 int\cf4  \cf7 main\cf4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "----------------------------------------------------------"\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "         RUNNING STORAGE ENGINE ISOLATION TESTS           "\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "----------------------------------------------------------"\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\
+\cb3     \cf7 test_functionality\cf4 ();\cb1 \
+\cb3     \cf7 test_concurrency\cf4 ();\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "----------------------------------------------------------"\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "          ALL VERIFICATIONS PASSED SUCCESSFULLY!          "\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "----------------------------------------------------------"\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\
+\cb3     \cf2 return\cf4  \cf9 0\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 hash_ring_test.cpp:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf5 <iostream>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 "../src/hash_ring.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <cassert>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <thread>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <atomic>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <chrono>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <unordered_map>\cf4 \cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_determinism\cf4 ();\cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_distribution\cf4 ();\cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_disruption\cf4 ();\cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_concurrency\cf4 ();\cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_preference_list\cf4 ();\cb1 \
+\
+\
+\cf10 \cb3 int\cf4  \cf7 main\cf4 () \{\cb1 \
+\cb3     \cf7 test_determinism\cf4 ();\cb1 \
+\cb3     \cf7 test_distribution\cf4 ();\cb1 \
+\cb3     \cf7 test_disruption\cf4 ();\cb1 \
+\cb3     \cf7 test_concurrency\cf4 ();\cb1 \
+\cb3     \cf7 test_preference_list\cf4 ();\cb1 \
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "All tests have passed."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_determinism\cf4 () \{\cb1 \
+\cb3     \cf6 ConsistentHashRing\cf4  \cf8 ring\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf9 6\cf4 ; \cf8 i\cf4 ++) \cb1 \
+\cb3         \cf8 ring\cf4 .\cf7 AddNode\cf4 (\cf5 "node"\cf4  \cf7 +\cf4  \cf6 std\cf4 ::\cf7 to_string\cf4 (\cf8 i\cf4 ));\cb1 \
+\cb3     \cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 output1\cf4  = \cf8 ring\cf4 .\cf7 GetNode\cf4 (\cf5 "some_input"\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 output2\cf4  = \cf8 ring\cf4 .\cf7 GetNode\cf4 (\cf5 "some_input"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 output1\cf4  \cf7 ==\cf4  \cf8 output2\cf4 );\cb1 \
+\
+\cb3     \cf8 ring\cf4 .\cf7 RemoveNode\cf4 (\cf8 output1\cf4 );\cb1 \
+\cb3     \cf8 output1\cf4  \cf7 =\cf4  \cf8 ring\cf4 .\cf7 GetNode\cf4 (\cf5 "some_input"\cf4 );\cb1 \
+\cb3     \cf8 output2\cf4  \cf7 =\cf4  \cf8 ring\cf4 .\cf7 GetNode\cf4 (\cf5 "some_input"\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 output1\cf4  \cf7 ==\cf4  \cf8 output2\cf4 );\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[OK] The Ring is Determistic."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_distribution\cf4 () \{\cb1 \
+\cb3     \cf6 ConsistentHashRing\cf4  \cf8 ring\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf9 6\cf4 ; \cf8 i\cf4 ++) \cb1 \
+\cb3         \cf8 ring\cf4 .\cf7 AddNode\cf4 (\cf5 "node"\cf4  \cf7 +\cf4  \cf6 std\cf4 ::\cf7 to_string\cf4 (\cf8 i\cf4 ));\cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 int\cf4  \cf8 num_keys\cf4  = \cf9 100000\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 map\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 , \cf10 int\cf4 > \cf8 count\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 j\cf4  = \cf9 1\cf4 ; \cf8 j\cf4  <= \cf8 num_keys\cf4 ; \cf8 j\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (j);\cf4 \cb1 \
+\cf8 \cb3         count\cf7 [\cf8 ring.\cf7 GetNode\cf8 (key)\cf7 ]\cf4 ++\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf10 double\cf4  \cf8 expected\cf4  = \cf8 num_keys\cf4  / \cf9 6.0\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 auto\cf13 &\cf4  \cf8 e\cf4 : \cf8 count\cf4 ) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf10 double\cf8  ratio \cf4 =\cf8  e.second \cf4 /\cf8  expected;\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::cout \cf7 <<\cf8  e.first \cf7 <<\cf8  \cf5 ": "\cf8  \cf7 <<\cf8  e.second \cf7 <<\cf8  \cf5 "/"\cf8  \cf7 <<\cf8  expected \cf7 <<\cf8  \cf5 "("\cf8  \cf7 <<\cf8  ratio \cf7 <<\cf8  \cf5 " times the expected)"\cf8  \cf7 <<\cf8  \cf6 std\cf8 ::\cf7 endl\cf8 ;\cf4 \cb1 \
+\cf8 \cb3         \cf13 assert\cf8 (ratio \cf4 <\cf8  \cf9 1.3\cf8  \cf4 &&\cf8  ratio \cf4 >\cf8  \cf9 0.7\cf8 );\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[OK] Distribution is almost uniform."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_disruption\cf4 () \{\cb1 \
+\cb3     \cf6 ConsistentHashRing\cf4  \cf8 ring\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf9 6\cf4 ; \cf8 i\cf4 ++) \cb1 \
+\cb3         \cf8 ring\cf4 .\cf7 AddNode\cf4 (\cf5 "node"\cf4  \cf7 +\cf4  \cf6 std\cf4 ::\cf7 to_string\cf4 (\cf8 i\cf4 ));\cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 int\cf4  \cf8 num_keys\cf4  = \cf9 10000\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 unordered_map\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 , \cf6 std\cf4 ::\cf6 string\cf4 > \cf8 before\cf4 ;\cb1 \
+\
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf8 num_keys\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         before\cf7 [\cf8 key\cf7 ]\cf8  \cf7 =\cf8  ring.\cf7 GetNode\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf8 ring\cf4 .\cf7 RemoveNode\cf4 (\cf5 "node3"\cf4 );\cb1 \
+\
+\cb3     \cf10 int\cf4  \cf8 changed\cf4  = \cf9 0\cf4 ;\cb1 \
+\
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf8 num_keys\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         \cf2 if\cf8  (ring.\cf7 GetNode\cf8 (key) \cf7 !=\cf8  before\cf7 [\cf8 key\cf7 ]\cf8 ) changed\cf4 ++\cf8 ;\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf10 double\cf4  \cf8 expected\cf4  = \cf9 1.0\cf4  / \cf9 6.0\cf4 ;\cb1 \
+\cb3     \cf10 double\cf4  \cf8 reality\cf4  = \cf13 static_cast\cf4 <\cf10 double\cf4 >(\cf8 changed\cf4 ) / \cf8 num_keys\cf4 ;\cb1 \
+\
+\cb3     \cf13 assert\cf4 (\cf8 reality\cf4  < \cf9 0.30\cf4 );\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[OK] The disruption when a node is deleted is "\cf4  \cf7 <<\cf4  \cf8 changed\cf4  \cf7 <<\cf4  \cf5 "/"\cf4  \cf7 <<\cf4  \cf8 num_keys\cf4  \cf7 <<\cf4  \cf5 "("\cf4  \cf7 <<\cf4  \cf8 reality\cf4 *\cf9 100\cf4  \cf7 <<\cf4  \cf5 " percent), which is minimal."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf10 \cb3 void\cf4  \cf7 test_concurrency\cf4 () \{\cb1 \
+\cb3     \cf6 ConsistentHashRing\cf4  \cf8 ring\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 1\cf4 ; \cf8 i\cf4  <= \cf9 6\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         ring.\cf7 AddNode\cf8 (\cf5 "node"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i));\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf6 atomic\cf4 <\cf10 bool\cf4 > \cf8 stop\cf4 (\cf13 false\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 atomic\cf4 <\cf6 uint64_t\cf4 > \cf8 total_reads\cf4 (\cf9 0\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 atomic\cf4 <\cf6 uint64_t\cf4 > \cf8 total_writes\cf4 (\cf9 0\cf4 );\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 thread\cf4 > \cf8 threads\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // 8 Reader threads continuously querying GetNode and GetAllPhysicalNodes\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 int\cf4  \cf8 num_readers\cf4  = \cf9 8\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 r\cf4  = \cf9 0\cf4 ; \cf8 r\cf4  < \cf8 num_readers\cf4 ; \cf8 r\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         threads.\cf7 emplace_back\cf8 ([\cf4 &\cf8 ring, \cf4 &\cf8 stop, \cf4 &\cf8 total_reads]() \{\cf4 \cb1 \
+\cf8 \cb3             \cf6 uint64_t\cf8  local_reads \cf4 =\cf8  \cf9 0\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf2 while\cf8  (\cf4 !\cf8 stop.\cf7 load\cf8 (\cf6 std\cf8 ::\cf33 memory_order_relaxed\cf8 )) \{\cf4 \cb1 \
+\cf8 \cb3                 \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (local_reads \cf4 %\cf8  \cf9 1000\cf8 );\cf4 \cb1 \
+\cf8 \cb3                 \cf6 std\cf8 ::\cf6 string\cf8  owner \cf4 =\cf8  ring.\cf7 GetNode\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3                 \cf13 assert\cf8 (\cf4 !\cf8 owner.\cf7 empty\cf8 ());\cf4 \cb1 \
+\cf8 \cb3                 \cf4 \cb1 \
+\cf8 \cb3                 \cf2 if\cf8  (local_reads \cf4 %\cf8  \cf9 100\cf8  \cf4 ==\cf8  \cf9 0\cf8 ) \{\cf4 \cb1 \
+\cf8 \cb3                     \cf10 auto\cf8  nodes \cf4 =\cf8  ring.\cf7 GetAllPhysicalNodes\cf8 ();\cf4 \cb1 \
+\cf8 \cb3                     \cf13 assert\cf8 (\cf4 !\cf8 nodes.\cf7 empty\cf8 ());\cf4 \cb1 \
+\cf8 \cb3                 \}\cf4 \cb1 \
+\cf8 \cb3                 local_reads\cf4 ++\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \}\cf4 \cb1 \
+\cf8 \cb3             total_reads \cf7 +=\cf8  local_reads;\cf4 \cb1 \
+\cf8 \cb3         \});\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // 4 Writer threads continuously mutating the ring via AddNode and RemoveNode\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 int\cf4  \cf8 num_writers\cf4  = \cf9 4\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 w\cf4  = \cf9 0\cf4 ; \cf8 w\cf4  < \cf8 num_writers\cf4 ; \cf8 w\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         threads.\cf7 emplace_back\cf8 ([\cf4 &\cf8 ring, \cf4 &\cf8 stop, \cf4 &\cf8 total_writes, w]() \{\cf4 \cb1 \
+\cf8 \cb3             \cf6 uint64_t\cf8  local_writes \cf4 =\cf8  \cf9 0\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf2 while\cf8  (\cf4 !\cf8 stop.\cf7 load\cf8 (\cf6 std\cf8 ::\cf33 memory_order_relaxed\cf8 )) \{\cf4 \cb1 \
+\cf8 \cb3                 \cf6 std\cf8 ::\cf6 string\cf8  temp_node \cf4 =\cf8  \cf5 "temp_node_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (local_writes \cf4 %\cf8  \cf9 50\cf8 );\cf4 \cb1 \
+\cf8 \cb3                 ring.\cf7 AddNode\cf8 (temp_node);\cf4 \cb1 \
+\cf8 \cb3                 ring.\cf7 RemoveNode\cf8 (temp_node);\cf4 \cb1 \
+\cf8 \cb3                 local_writes \cf4 +=\cf8  \cf9 2\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \}\cf4 \cb1 \
+\cf8 \cb3             total_writes \cf7 +=\cf8  local_writes;\cf4 \cb1 \
+\cf8 \cb3         \});\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // Run the concurrent stress test for 500 milliseconds\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 this_thread\cf4 ::\cf7 sleep_for\cf4 (\cf6 std\cf4 ::\cf6 chrono\cf4 ::\cf6 milliseconds\cf4 (\cf9 500\cf4 ));\cb1 \
+\cb3     \cf8 stop\cf4 .\cf7 store\cf4 (\cf13 true\cf4 , \cf6 std\cf4 ::\cf33 memory_order_relaxed\cf4 );\cb1 \
+\
+\cb3     \cf2 for\cf4  (\cf10 auto\cf13 &\cf4  \cf8 t\cf4  : \cf8 threads\cf4 ) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         t.\cf7 join\cf8 ();\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf10 auto\cf4  \cf8 nodes\cf4  = \cf8 ring\cf4 .\cf7 GetAllPhysicalNodes\cf4 ();\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 nodes\cf4 .\cf7 size\cf4 () == \cf9 6\cf4 );\cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[OK] Concurrency: "\cf4  \cf7 <<\cf4  \cf8 total_reads\cf4 .\cf7 load\cf4 () \cf7 <<\cf4  \cf5 " reads and "\cf4 \cb1 \
+\cb3               \cf7 <<\cf4  \cf8 total_writes\cf4 .\cf7 load\cf4 () \cf7 <<\cf4  \cf5 " writes completed safely without data races or deadlocks.\cf32 \\n\cf5 "\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\cf10 \cb3 void\cf4  \cf7 test_preference_list\cf4 () \{\cb1 \
+\cb3     \cf6 ConsistentHashRing\cf4  \cf8 ring\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf9 6\cf4 ; \cf8 i\cf4 ++) \cf8 ring\cf4 .\cf7 AddNode\cf4 (\cf5 "key_"\cf4  \cf7 +\cf4  \cf6 std\cf4 ::\cf7 to_string\cf4 (\cf8 i\cf4 ));\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // check size and distinctness\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 auto\cf4  \cf8 pre_list\cf4  = \cf8 ring\cf4 .\cf7 GetPreferenceList\cf4 (\cf5 "some_key"\cf4 , \cf9 3\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 pre_list\cf4 .\cf7 size\cf4 () == \cf9 3\cf4 );\cb1 \
+\cb3     \cf13 assert\cf4 (\cf8 pre_list\cf7 [\cf9 0\cf7 ]\cf4  \cf7 !=\cf4  \cf8 pre_list\cf7 [\cf9 1\cf7 ]\cf4  && \cf8 pre_list\cf7 [\cf9 0\cf7 ]\cf4  \cf7 !=\cf4  \cf8 pre_list\cf7 [\cf9 2\cf7 ]\cf4  && \cf8 pre_list\cf7 [\cf9 2\cf7 ]\cf4  \cf7 !=\cf4  \cf8 pre_list\cf7 [\cf9 1\cf7 ]\cf4 );\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // check same key gives same list (determinism)\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (\cf8 pre_list\cf4  \cf7 ==\cf4  \cf8 ring\cf4 .\cf7 GetPreferenceList\cf4 (\cf5 "some_key"\cf4 , \cf9 3\cf4 ));\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // check GetNode is equal to the first element of list\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf13 assert\cf4 (\cf8 pre_list\cf7 [\cf9 0\cf7 ]\cf4  \cf7 ==\cf4  \cf8 ring\cf4 .\cf7 GetNode\cf4 (\cf5 "some_key"\cf4 ));\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // check size and distinctness for 5000 keys\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf9 5000\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\cf8 \cb3         \cf10 auto\cf8  pref \cf4 =\cf8  ring.\cf7 GetPreferenceList\cf8 (\cf5 "bulk_key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i), \cf9 3\cf8 );\cf4 \cb1 \
+\cf8 \cb3         \cf13 assert\cf8 (pref.\cf7 size\cf8 () \cf4 ==\cf8  \cf9 3\cf8 );\cf4 \cb1 \
+\cf8 \cb3         \cf13 assert\cf8 (pref\cf7 [\cf9 0\cf7 ]\cf8  \cf7 !=\cf8  pref\cf7 [\cf9 1\cf7 ]\cf8  \cf4 &&\cf8  pref\cf7 [\cf9 0\cf7 ]\cf8  \cf7 !=\cf8  pref\cf7 [\cf9 2\cf7 ]\cf8  \cf4 &&\cf8  pref\cf7 [\cf9 2\cf7 ]\cf8  \cf7 !=\cf8  pref\cf7 [\cf9 1\cf7 ]\cf8 );\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 "[OK] Preference lists are correctly sized, distinct, deterministic.\cf32 \\n\cf5 "\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 cluster_client_test.cpp:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf5 "kv.grpc.pb.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <grpcpp/grpcpp.h>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <iostream>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <fstream>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <random>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <cassert>\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <vector>\cf4 \cb1 \
+\
+\
+\cf6 \cb3 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf7 node_adds\cf4 (\cf6 std\cf4 ::\cf6 string\cf4  \cf27 path\cf4 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 addresses\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 ifstream\cf4  \cf8 file\cf4 (\cf27 path\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 line\cf4 ;\cb1 \
+\cb3     \cf2 while\cf4 (\cf6 std\cf4 ::\cf7 getline\cf4 (\cf8 file\cf4 , \cf8 line\cf4 )) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         \cf2 if\cf8  (\cf4 !\cf8 line.\cf7 empty\cf8 ()) addresses.\cf7 push_back\cf8 (line);\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 return\cf4  \cf8 addresses\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 // test a key to be having the same owner from all nodes\cf4 \cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_same_owner\cf4 (\cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >>\cf13 &\cf4  \cf27 stubs\cf4 );\cb1 \
+\cf14 \cb3 // write in one random node, and read in one random node\cf4 \cb1 \
+\cf10 \cb3 void\cf4  \cf7 test_functionality\cf4 (\cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >>\cf13 &\cf4  \cf27 stubs\cf4 );\cb1 \
+\
+\
+\cf10 \cb3 int\cf4  \cf7 main\cf4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 addresses\cf4  = \cf7 node_adds\cf4 (\cf5 "cluster.conf"\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >> \cf8 stubs\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4 (\cf10 auto\cf13 &\cf4  \cf8 address\cf4 : \cf8 addresses\cf4 ) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         \cf10 auto\cf8  channel \cf4 =\cf8  \cf6 grpc\cf8 ::\cf7 CreateChannel\cf8 (address, \cf6 grpc\cf8 ::\cf7 InsecureChannelCredentials\cf8 ());\cf4 \cb1 \
+\cf8 \cb3         stubs.\cf7 push_back\cf8 (\cf6 kvstore\cf8 ::\cf6 KeyValueStore\cf8 ::\cf7 NewStub\cf8 (channel));\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf7 test_same_owner\cf4 (\cf8 stubs\cf4 );\cb1 \
+\
+\cb3     \cf7 test_functionality\cf4 (\cf8 stubs\cf4 );\cb1 \
+\
+\cb3     \cf2 return\cf4  \cf9 0\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb3 void\cf4  \cf7 test_functionality\cf4 (\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >>\cf13 &\cf4  \cf27 stubs\cf4 \cb1 \
+\cb3 ) \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 mt19937\cf4  \cf8 gen\cf4 (\cf9 42\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 uniform_int_distribution\cf4 <\cf10 int\cf4 > \cf8 node_pick\cf4 (\cf9 0\cf4 , \cf27 stubs\cf4 .\cf7 size\cf4 () - \cf9 1\cf4 );\cb1 \
+\
+\cb3     \cf10 int\cf4  \cf8 num_keys\cf4  = \cf9 200\cf4 ;\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // choose random stub and put\cf4 \cb1 \
+\cf14 \cb3     // then choose random stub and check getnode\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 for\cf4  (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf8 num_keys\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3             \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3             \cf6 std\cf8 ::\cf6 string\cf8  value \cf4 =\cf8  \cf5 "value_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         \{\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf13 &\cf8  stub \cf4 =\cf8  \cf27 stubs\cf7 [\cf8 node_pick\cf7 (\cf8 gen\cf7 )]\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 PutRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_value\cf8 (value);\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 PutResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 Status\cf8  status \cf4 =\cf8  stub->\cf7 Put\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3             \cf13 assert\cf8 (status.\cf7 ok\cf8 () \cf4 &&\cf8  resp.\cf7 success\cf8 ());\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\cf8 \cb3         \{\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf13 &\cf8  stub \cf4 =\cf8  \cf27 stubs\cf7 [\cf8 node_pick\cf7 (\cf8 gen\cf7 )]\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 GetRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 GetResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 Status\cf8  status \cf4 =\cf8  stub->\cf7 Get\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3             \cf13 assert\cf8 (status.\cf7 ok\cf8 () \cf4 &&\cf8  resp.\cf7 found\cf8 () \cf4 &&\cf8  resp.\cf7 value\cf8 () \cf7 ==\cf8  value);\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 " [\uc0\u10003 ] All write/reads ("\cf4  \cf7 <<\cf4  \cf8 num_keys\cf4  \cf7 <<\cf4  \cf5 ") are done finely even from random nodes."\cf4  \cb1 \
+\cb3     \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf10 \cb3 void\cf4  \cf7 test_same_owner\cf4 (\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >>\cf13 &\cf4  \cf27 stubs\cf4 \cb1 \
+\cb3 ) \{\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 key\cf4  = \cf5 "Common_key"\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 owner\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 auto\cf13 &\cf4  \cf8 stub\cf4 : \cf27 stubs\cf4 ) \cf8 \{\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 DebugOwnerRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3         req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 DebugOwnerResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3         \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3         \cf6 grpc\cf8 ::\cf6 Status\cf8  status \cf4 =\cf8  stub->\cf7 DebugOwner\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3         \cf2 if\cf8 (owner.\cf7 empty\cf8 ()) owner \cf7 =\cf8  resp.\cf7 owner_address\cf8 ();\cf4 \cb1 \
+\cf8 \cb3         \cf13 assert\cf8 (status.\cf7 ok\cf8 ());\cf4 \cb1 \
+\cf8 \cb3         \cf13 assert\cf8 (owner \cf7 ==\cf8  resp.\cf7 owner_address\cf8 ());\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf8 cout\cf4  \cf7 <<\cf4  \cf5 " [\uc0\u10003 ] All nodes have agreed that same key has same owner."\cf4  \cf7 <<\cf4  \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3 \}\
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 \cb1 replication_test.cpp:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 #include\cf13  \cf5 "kv.grpc.pb.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 "grpcpp/grpcpp.h"\cf4 \cb1 \
+\cf2 \cb3 #include\cf13  \cf5 <fstream>\cf4 \cb1 \
+\
+\
+\cf14 \cb3 // create function to read addresses from config file path and return vector of addresses\cf4 \cb1 \
+\cf6 \cb3 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf7 ReadAddresses\cf4 (\cf13 const\cf4  \cf6 std\cf4 ::\cf6 string\cf13 &\cf4  \cf27 path\cf4 ) \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 string\cf4 > \cf8 addrs\cf4 ;\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 ifstream\cf4  \cf8 file\cf4 (\cf27 path\cf4 );\cb1 \
+\cb3     \cf6 std\cf4 ::\cf6 string\cf4  \cf8 line\cf4 ;\cb1 \
+\cb3     \cf2 while\cf4 (\cf6 std\cf4 ::\cf7 getline\cf4 (\cf8 file\cf4 , \cf8 line\cf4 )) \cb1 \
+\cb3         \cf2 if\cf4 (!\cf8 line\cf4 .\cf7 empty\cf4 ())\cb1 \
+\cb3             \cf8 addrs\cf4 .\cf7 push_back\cf4 (\cf8 line\cf4 );\cb1 \
+\cb3     \cf2 return\cf4  \cf8 addrs\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 // main function\cf4 \cb1 \
+\cf10 \cb3 int\cf4  \cf7 main\cf4 () \{\cb1 \
+\
+\cf14 \cb3     // get addresses vector\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 auto\cf4  \cf8 addresses\cf4  = \cf7 ReadAddresses\cf4 (\cf5 "cluster.conf"\cf4 );\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // create vector of stubs to all those adresses\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf6 vector\cf4 <\cf6 std\cf4 ::\cf6 unique_ptr\cf4 <\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf6 Stub\cf4 >> \cf8 stubs\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4  (\cf10 auto\cf13 &\cf4  \cf8 addr\cf4 : \cf8 addresses\cf4 )\cb1 \
+\cb3         \cf8 stubs\cf4 .\cf7 push_back\cf4 (\cf6 kvstore\cf4 ::\cf6 KeyValueStore\cf4 ::\cf7 NewStub\cf4 (\cf6 grpc\cf4 ::\cf7 CreateChannel\cf4 (\cf8 addr\cf4 , \cf6 grpc\cf4 ::\cf7 InsecureChannelCredentials\cf4 ())));\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3     // do some number of iterations\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf10 int\cf4  \cf8 num_iter\cf4  = \cf9 100\cf4 ;\cb1 \
+\cb3     \cf2 for\cf4 (\cf10 int\cf4  \cf8 i\cf4  = \cf9 0\cf4 ; \cf8 i\cf4  < \cf8 num_iter\cf4 ; \cf8 i\cf4 ++) \cf8 \{\cf4 \cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3         // create a key and value\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  key \cf4 =\cf8  \cf5 "key_repl_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\cf8 \cb3         \cf6 std\cf8 ::\cf6 string\cf8  value \cf4 =\cf8  \cf5 "value_repl_"\cf8  \cf7 +\cf8  \cf6 std\cf8 ::\cf7 to_string\cf8 (i);\cf4 \cb1 \
+\
+\cf14 \cb3         // put that key-value pair into the cluster through one of the servers\cf4 \cb1 \
+\cf8 \cb3         \{\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 PutRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 PutResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_value\cf8 (value);\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf8  status \cf4 =\cf8  stubs\cf7 [\cf9 0\cf7 ]->Put\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3             \cf7 assert\cf8 (status.\cf7 ok\cf8 () \cf4 &&\cf8  resp.\cf7 success\cf8 ());\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\
+\cf14 \cb3         // get the pref list for that key and check that its size is 3\cf4 \cb1 \
+\cf8 \cb3         \cf6 kvstore\cf8 ::\cf6 DebugPreferenceListResponse\cf8  presp;\cf4 \cb1 \
+\cf8 \cb3         \{\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 DebugPreferenceListRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf8  status \cf4 =\cf8  stubs\cf7 [\cf9 0\cf7 ]->DebugPreferenceList\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 presp);\cf4 \cb1 \
+\cf8 \cb3             \cf7 assert\cf8 (status.\cf7 ok\cf8 ());\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\cf8 \cb3         \cf7 assert\cf8 (presp.\cf7 nodes_size\cf8 () \cf4 ==\cf8  \cf9 3\cf8 );\cf4 \cb1 \
+\
+\cf14 \cb3         // check for each server or node in the pref list \cf4 \cb1 \
+\cf14 \cb3         // that thier local storage has the data pair\cf4 \cb1 \
+\cf8 \cb3         \cf2 for\cf8  (\cf10 auto\cf13 &\cf8  node: presp.\cf7 nodes\cf8 ()) \{\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 DebugLocalGetRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 DebugLocalGetResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             \cf10 int\cf8  ind \cf4 =\cf8  \cf4 -\cf9 1\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf2 for\cf8  (\cf6 size_t\cf8  i \cf4 =\cf8  \cf9 0\cf8 ; i \cf4 <\cf8  addresses.\cf7 size\cf8 (); i\cf4 ++\cf8 ) \{\cf4 \cb1 \
+\cf8 \cb3                 \cf2 if\cf8 (addresses\cf7 [\cf8 i\cf7 ]\cf8  \cf4 ==\cf8  node)\{\cf4 \cb1 \
+\cf8 \cb3                     ind \cf4 =\cf8  i;\cf4 \cb1 \
+\cf8 \cb3                     \cf2 break\cf8 ;\cf4 \cb1 \
+\cf8 \cb3                 \}\cf4 \cb1 \
+\cf8 \cb3             \}\cf4 \cb1 \
+\cf8 \cb3             \cf7 assert\cf8 (ind\cf4 !=-\cf9 1\cf8 );\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf8  status \cf4 =\cf8  stubs\cf7 [\cf8 ind\cf7 ]->DebugLocalGet\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3             \cf7 assert\cf8 (status.\cf7 ok\cf8 () \cf4 &&\cf8  resp.\cf7 exists\cf8 () \cf4 &&\cf8  \cf4 !\cf8 resp.\cf7 is_tombstone\cf8 () \cf4 &&\cf8  resp.\cf7 value\cf8 () \cf7 ==\cf8  value);\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\
+\cf14 \cb3         // check if we get the pair through random node (just for checking)\cf4 \cb1 \
+\cf8 \cb3         \{\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf13 &\cf8  stub \cf4 =\cf8  stubs\cf7 [\cf8 (i \cf4 +\cf8  \cf9 1\cf8 ) \cf4 %\cf8  stubs.\cf7 size\cf8 ()\cf7 ]\cf8 ;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 GetRequest\cf8  req;\cf4 \cb1 \
+\cf8 \cb3             \cf6 kvstore\cf8 ::\cf6 GetResponse\cf8  resp;\cf4 \cb1 \
+\cf8 \cb3             \cf6 grpc\cf8 ::\cf6 ClientContext\cf8  ctx;\cf4 \cb1 \
+\cf8 \cb3             req.\cf7 set_key\cf8 (key);\cf4 \cb1 \
+\cf8 \cb3             \cf10 auto\cf8  status \cf4 =\cf8  stub\cf7 ->Get\cf8 (\cf4 &\cf8 ctx, req, \cf4 &\cf8 resp);\cf4 \cb1 \
+\cf8 \cb3             \cf7 assert\cf8 (status.\cf7 ok\cf8 () \cf4 &&\cf8  resp.\cf7 found\cf8 () \cf4 &&\cf8  resp.\cf7 value\cf8 () \cf7 ==\cf8  value);\cf4 \cb1 \
+\cf8 \cb3         \}\cf4 \cb1 \
+\cf8 \cb3     \}\cf4 \cb1 \
+\cf14 \cb3     // output all cases succeeded\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 std\cf4 ::\cf8 cout\cf4  << \cf5 "[OK] "\cf4  << \cf8 num_iter\cf4 \cb1 \
+\cb3               << \cf5 " keys correctly replicated to all 3 owners and read via quorum."\cf4  << \cf6 std\cf4 ::\cf7 endl\cf4 ;\cb1 \
+\cb3     \cf2 return\cf4  \cf9 0\cf4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 fault_tolerance_test.cpp:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf15 \cb3 \outl0\strokewidth0 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 "kv.grpc.pb.h"\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 "grpcpp/grpcpp.h"\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 <thread>\cf17 \cb1 \strokec17 \
+\cf15 \cb3 \strokec15 #include\cf13 \strokec13  \cf16 \strokec16 <fstream>\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25 // method that takes address and returns port number\cf17 \cb1 \strokec17 \
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf22 \strokec22 PortOf\cf17 \strokec17 (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 address\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf23 \strokec23 address\cf17 \strokec17 .\cf22 \strokec22 substr\cf17 \strokec17 (\cf23 \strokec23 address\cf17 \strokec17 .\cf22 \strokec22 find\cf17 \strokec17 (\cf16 \strokec16 ":"\cf17 \strokec17 ) \strokec20 +\strokec17  \cf24 \strokec24 1\cf17 \strokec17 );\cb1 \
+\cb3 \}\cb1 \
+\
+\cf25 \cb3 \strokec25 // method that takes the address and deletes server on that port\cf17 \cb1 \strokec17 \
+\cf21 \cb3 \strokec21 void\cf17 \strokec17  \cf22 \strokec22 Kill\cf17 \strokec17 (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 address\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf19 \strokec19 cmd\cf17 \strokec17  \strokec20 =\strokec17  \cf16 \strokec16 "./scripts/kill_node.sh "\cf17 \strokec17  \cf22 \strokec22 +\cf17 \strokec17  \cf22 \strokec22 PortOf\cf17 \strokec17 (\cf23 \strokec23 address\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 system\cf17 \strokec17 (\cf19 \strokec19 cmd\cf17 \strokec17 .\cf22 \strokec22 c_str\cf17 \strokec17 ());\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 this_thread\cf17 \strokec17 ::\cf22 \strokec22 sleep_for\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 milliseconds\cf17 \strokec17 (\cf24 \strokec24 500\cf17 \strokec17 ));\cb1 \
+\cb3 \}\cb1 \
+\
+\cf21 \cb3 \strokec21 void\cf17 \strokec17  \cf22 \strokec22 Restart\cf17 \strokec17 () \{\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf19 \strokec19 cmd\cf17 \strokec17  \strokec20 =\strokec17  \cf16 \strokec16 "./scripts/stop_cluster.sh"\cf17 \strokec17 ;\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 system\cf17 \strokec17 (\cf19 \strokec19 cmd\cf17 \strokec17 .\cf22 \strokec22 c_str\cf17 \strokec17 ());\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 this_thread\cf17 \strokec17 ::\cf22 \strokec22 sleep_for\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 milliseconds\cf17 \strokec17 (\cf24 \strokec24 500\cf17 \strokec17 ));\cb1 \
+\cb3     \cf19 \strokec19 cmd\cf17 \strokec17  \cf22 \strokec22 =\cf17 \strokec17  \cf16 \strokec16 "./scripts/start_cluster.sh"\cf17 \strokec17 ;\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 system\cf17 \strokec17 (\cf19 \strokec19 cmd\cf17 \strokec17 .\cf22 \strokec22 c_str\cf17 \strokec17 ());\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 this_thread\cf17 \strokec17 ::\cf22 \strokec22 sleep_for\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 chrono\cf17 \strokec17 ::\cf18 \strokec18 milliseconds\cf17 \strokec17 (\cf24 \strokec24 500\cf17 \strokec17 ));\cb1 \
+\cb3 \}\cb1 \
+\
+\cf25 \cb3 \strokec25 // method that takes addresses vector and dead addresses vector \cf17 \cb1 \strokec17 \
+\cf25 \cb3 \strokec25 // and returns the first alive address\cf17 \cb1 \strokec17 \
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf22 \strokec22 PickAlive\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 >\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 addresses\cf17 \strokec17 , \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 >\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 dead\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf15 \strokec15 for\cf17 \strokec17  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf17 \strokec17  \cf19 \strokec19 a\cf17 \strokec17 : \cf23 \strokec23 addresses\cf17 \strokec17 ) \cb1 \
+\cb3         \cf15 \strokec15 if\cf17 \strokec17  (\cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 find\cf17 \strokec17 (\cf23 \strokec23 dead\cf17 \strokec17 .\cf22 \strokec22 begin\cf17 \strokec17 (), \cf23 \strokec23 dead\cf17 \strokec17 .\cf22 \strokec22 end\cf17 \strokec17 (), \cf19 \strokec19 a\cf17 \strokec17 ) \cf22 \strokec22 ==\cf17 \strokec17  \cf23 \strokec23 dead\cf17 \strokec17 .\cf22 \strokec22 end\cf17 \strokec17 ())\cb1 \
+\cb3             \cf15 \strokec15 return\cf17 \strokec17  \cf19 \strokec19 a\cf17 \strokec17 ;\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf23 \strokec23 addresses\cf17 \strokec17 .\cf22 \strokec22 front\cf17 \strokec17 ();\cb1 \
+\cb3 \}\cb1 \
+\
+\cf25 \cb3 \strokec25 // method that takes config file path and returns vector of addresses\cf17 \cb1 \strokec17 \
+\cf18 \cb3 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 > \cf22 \strokec22 ReadAddresses\cf17 \strokec17 (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 path\cf17 \strokec17 ) \{\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17 > \cf19 \strokec19 addrs\cf17 \strokec17 ;\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 ifstream\cf17 \strokec17  \cf19 \strokec19 file\cf17 \strokec17 (\cf23 \strokec23 path\cf17 \strokec17 );\cb1 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf17 \strokec17  \cf19 \strokec19 line\cf17 \strokec17 ;\cb1 \
+\cb3     \cf15 \strokec15 while\cf17 \strokec17 (\cf18 \strokec18 std\cf17 \strokec17 ::\cf22 \strokec22 getline\cf17 \strokec17 (\cf19 \strokec19 file\cf17 \strokec17 , \cf19 \strokec19 line\cf17 \strokec17 )) \cb1 \
+\cb3         \cf15 \strokec15 if\cf17 \strokec17 (\strokec20 !\cf19 \strokec19 line\cf17 \strokec17 .\cf22 \strokec22 empty\cf17 \strokec17 ())\cb1 \
+\cb3             \cf19 \strokec19 addrs\cf17 \strokec17 .\cf22 \strokec22 push_back\cf17 \strokec17 (\cf19 \strokec19 line\cf17 \strokec17 );\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf19 \strokec19 addrs\cf17 \strokec17 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf25 \cb3 \strokec25 // main method\cf17 \cb1 \strokec17 \
+\cf21 \cb3 \strokec21 int\cf17 \strokec17  \cf22 \strokec22 main\cf17 \strokec17 () \{\cb1 \
+\
+\cf25 \cb3 \strokec25     // create addresses vector\cf17 \cb1 \strokec17 \
+\cb3     \cf21 \strokec21 auto\cf17 \strokec17  \cf19 \strokec19 addresses\cf17 \strokec17  \strokec20 =\strokec17  \cf22 \strokec22 ReadAddresses\cf17 \strokec17 (\cf16 \strokec16 "cluster.conf"\cf17 \strokec17 );\cb1 \
+\
+\cf25 \cb3 \strokec25     // create stubs for those addresses\cf17 \cb1 \strokec17 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 vector\cf17 \strokec17 <\cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 unique_ptr\cf17 \strokec17 <\cf18 \strokec18 kvstore\cf17 \strokec17 ::\cf18 \strokec18 KeyValueStore\cf17 \strokec17 ::\cf18 \strokec18 Stub\cf17 \strokec17 >> \cf19 \strokec19 stubs\cf17 \strokec17 ;\cb1 \
+\cb3     \cf15 \strokec15 for\cf17 \strokec17  (\cf21 \strokec21 auto\cf13 \strokec13 &\cf17 \strokec17  \cf19 \strokec19 addr\cf17 \strokec17 : \cf19 \strokec19 addresses\cf17 \strokec17 ) \cf19 \strokec19 \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         stubs.\cf22 \strokec22 push_back\cf19 \strokec19 (\cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 KeyValueStore\cf19 \strokec19 ::\cf22 \strokec22 NewStub\cf19 \strokec19 (\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 CreateChannel\cf19 \strokec19 (addr, \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf22 \strokec22 InsecureChannelCredentials\cf19 \strokec19 ())\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         ));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \}\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25     // create a lambda function that takes the address and returns the corresponding stub pointer\cf17 \cb1 \strokec17 \
+\cb3     \cf21 \strokec21 auto\cf17 \strokec17  \cf22 \strokec22 StubFor\cf17 \strokec17  \strokec20 =\strokec17  [\strokec20 &\strokec17 ] (\cf13 \strokec13 const\cf17 \strokec17  \cf18 \strokec18 std\cf17 \strokec17 ::\cf18 \strokec18 string\cf13 \strokec13 &\cf17 \strokec17  \cf23 \strokec23 addr\cf17 \strokec17 ) -> \cf18 \strokec18 kvstore\cf21 \strokec21 ::\cf18 \strokec18 KeyValueStore\cf21 \strokec21 ::\cf18 \strokec18 Stub\cf21 \strokec21 *\cf17 \strokec17  \{\cb1 \
+\cb3         \cf15 \strokec15 for\cf17 \strokec17  (\cf18 \strokec18 size_t\cf17 \strokec17  \cf19 \strokec19 i\cf17 \strokec17  \strokec20 =\strokec17  \cf24 \strokec24 0\cf17 \strokec17 ; \cf19 \strokec19 i\cf17 \strokec17  \strokec20 <\strokec17  \cf19 \strokec19 addresses\cf17 \strokec17 .\cf22 \strokec22 size\cf17 \strokec17 (); \cf19 \strokec19 i\cf17 \strokec20 ++\strokec17 )\cb1 \
+\cb3             \cf15 \strokec15 if\cf17 \strokec17  (\cf19 \strokec19 addresses\cf22 \strokec22 [\cf19 \strokec19 i\cf22 \strokec22 ]\cf17 \strokec17  \cf22 \strokec22 ==\cf17 \strokec17  \cf23 \strokec23 addr\cf17 \strokec17 )\cb1 \
+\cb3                 \cf15 \strokec15 return\cf17 \strokec17  \cf19 \strokec19 stubs\cf22 \strokec22 [\cf19 \strokec19 i\cf22 \strokec22 ]\cf17 \strokec17 .\cf22 \strokec22 get\cf17 \strokec17 ();\cb1 \
+\cb3         \cf15 \strokec15 return\cf17 \strokec17  \cf13 \strokec13 nullptr\cf17 \strokec17 ;\cb1 \
+\cb3     \};\cb1 \
+\cb3     \cb1 \
+\cb3     \cf21 \strokec21 int\cf17 \strokec17  \cf19 \strokec19 num_iter\cf17 \strokec17  \strokec20 =\strokec17  \cf24 \strokec24 15\cf17 \strokec17 ;\cb1 \
+\
+\cb3     \cf15 \strokec15 for\cf17 \strokec17  (\cf21 \strokec21 int\cf17 \strokec17  \cf19 \strokec19 z\cf17 \strokec17  \strokec20 =\strokec17  \cf24 \strokec24 0\cf17 \strokec17 ; \cf19 \strokec19 z\cf17 \strokec17  \strokec20 <\strokec17  \cf19 \strokec19 addresses\cf17 \strokec17 .\cf22 \strokec22 size\cf17 \strokec17 (); \cf19 \strokec19 z\cf17 \strokec20 ++\strokec17 ) \cf19 \strokec19 \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19         \cf15 \strokec15 for\cf19 \strokec19  (\cf21 \strokec21 int\cf19 \strokec19  y \cf17 \strokec20 =\cf19 \strokec19  \cf24 \strokec24 0\cf19 \strokec19 ; y \cf17 \strokec20 <\cf19 \strokec19  num_iter; y\cf17 \strokec20 ++\cf19 \strokec19 ) \{\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "\cf34 \strokec34 \\n\cf16 \strokec16 Node_"\cf19 \strokec19  \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 to_string\cf19 \strokec19 (z) \cf22 \strokec22 +\cf19 \strokec19  \cf16 \strokec16 "_iter_"\cf19 \strokec19  \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 to_string\cf19 \strokec19 (y)\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf22 \strokec22 Restart\cf19 \strokec19 ();\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // create a key and value for read, put and delete rpcs\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  key \cf17 \strokec20 =\cf19 \strokec19  \cf16 \strokec16 "fault_tolerant_key_"\cf19 \strokec19  \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 to_string\cf19 \strokec19 (y);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19  value \cf17 \strokec20 =\cf19 \strokec19  \cf16 \strokec16 "fault_tolerant_value_"\cf19 \strokec19  \cf22 \strokec22 +\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 to_string\cf19 \strokec19 (y);\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // get the preference list of nodes for that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugPreferenceListResponse\cf19 \strokec19  presp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DebugPreferenceListRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  stubs\cf22 \strokec22 [\cf19 \strokec19 z\cf22 \strokec22 ]->DebugPreferenceList\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 presp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (status.\cf22 \strokec22 ok\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "preference list: "\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf15 \strokec15 for\cf19 \strokec19 (\cf21 \strokec21 auto\cf13 \strokec13 &\cf19 \strokec19  name: presp.\cf22 \strokec22 nodes\cf19 \strokec19 ())\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  name \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 " "\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf25 \cb3 \strokec25             // put the key and value into the cluster\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_value\cf19 \strokec19 (value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  stubs\cf22 \strokec22 [\cf19 \strokec19 z\cf22 \strokec22 ]->Put\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 success\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Write succeeded with 3/3 replicas alive."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // delete one node from the pref list and create vector of dead nodes\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf22 \strokec22 Kill\cf19 \strokec19 (presp.\cf22 \strokec22 nodes\cf19 \strokec19 (\cf24 \strokec24 0\cf19 \strokec19 ));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 vector\cf19 \strokec19 <\cf18 \strokec18 std\cf19 \strokec19 ::\cf18 \strokec18 string\cf19 \strokec19 > dead \cf17 \strokec20 =\cf19 \strokec19  \{presp.\cf22 \strokec22 nodes\cf19 \strokec19 (\cf24 \strokec24 0\cf19 \strokec19 )\};\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // check if the get using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Get\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 found\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 value\cf19 \strokec19 () \cf22 \strokec22 ==\cf19 \strokec19  value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Read succeeded with 2/3 replicas alive (quorum of 2 met)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // check if the delete using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Delete\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 success\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Delete succeeded with 2/3 replicas alive (quorum of 2 met)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // check if the put using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_value\cf19 \strokec19 (value);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Put\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (status.\cf22 \strokec22 ok\cf19 \strokec19 () \cf17 \strokec20 &&\cf19 \strokec19  resp.\cf22 \strokec22 success\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Put succeeded with 2/3 replicas alive (quorum of 2 met)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // delete the next node from the pref list\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf22 \strokec22 Kill\cf19 \strokec19 (presp.\cf22 \strokec22 nodes\cf19 \strokec19 (\cf24 \strokec24 1\cf19 \strokec19 ));\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             dead.\cf22 \strokec22 push_back\cf19 \strokec19 (presp.\cf22 \strokec22 nodes\cf19 \strokec19 (\cf24 \strokec24 1\cf19 \strokec19 ));\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // check if the get using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 GetResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Get\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (\cf17 \strokec20 !\cf19 \strokec19 status.\cf22 \strokec22 ok\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Read correctly failed with only 1/3 replicas alive "\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                         \cf16 \strokec16 "(quorum of 2 NOT met \'97 this is expected, not a bug)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf25 \cb3 \strokec25             // check if the delete using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 DeleteResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Delete\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (\cf17 \strokec20 !\cf19 \strokec19 status.\cf22 \strokec22 ok\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Delete correctly failed with only 1/3 replicas alive "\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                         \cf16 \strokec16 "(quorum of 2 NOT met \'97 this is expected, not a bug)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf17 \cb1 \strokec17 \
+\cf25 \cb3 \strokec25             // check if the put using alive node works on that key\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \{\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutRequest\cf19 \strokec19  req;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 kvstore\cf19 \strokec19 ::\cf18 \strokec18 PutResponse\cf19 \strokec19  resp;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf18 \strokec18 grpc\cf19 \strokec19 ::\cf18 \strokec18 ClientContext\cf19 \strokec19  ctx;\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 req.\cf22 \strokec22 set_key\cf19 \strokec19 (key);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  coordinator \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 PickAlive\cf19 \strokec19 (addresses, dead);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf21 \strokec21 auto\cf19 \strokec19  status \cf17 \strokec20 =\cf19 \strokec19  \cf22 \strokec22 StubFor\cf19 \strokec19 (coordinator)->\cf22 \strokec22 Put\cf19 \strokec19 (\cf17 \strokec20 &\cf19 \strokec19 ctx, req, \cf17 \strokec20 &\cf19 \strokec19 resp);\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                 \cf22 \strokec22 assert\cf19 \strokec19 (\cf17 \strokec20 !\cf19 \strokec19 status.\cf22 \strokec22 ok\cf19 \strokec19 ());\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19             \cf18 \strokec18 std\cf19 \strokec19 ::cout \cf17 \strokec20 <<\cf19 \strokec19  \cf16 \strokec16 "[OK] Put correctly failed with only 1/3 replicas alive "\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19                         \cf16 \strokec16 "(quorum of 2 NOT met \'97 this is expected, not a bug)."\cf19 \strokec19  \cf17 \strokec20 <<\cf19 \strokec19  \cf18 \strokec18 std\cf19 \strokec19 ::\cf22 \strokec22 endl\cf19 \strokec19 ;\cf17 \cb1 \strokec17 \
+\
+\cf19 \cb3 \strokec19         \}\cf17 \cb1 \strokec17 \
+\cf19 \cb3 \strokec19     \}\cf17 \cb1 \strokec17 \
+\cf25 \cb3 \strokec25     // output successful test\cf17 \cb1 \strokec17 \
+\cb3     \cf18 \strokec18 std\cf17 \strokec17 ::\cf19 \strokec19 cout\cf17 \strokec17  \strokec20 <<\strokec17  \cf16 \strokec16 "\cf34 \strokec34 \\n\cf16 \strokec16 All iterations passed successfully, verifying code for nicely following quorum consensus\cf34 \strokec34 \\n\cf16 \strokec16 "\cf17 \strokec17 ;\cb1 \
+\cb3     \cf22 \strokec22 Restart\cf17 \strokec17 ();\cb1 \
+\cb3     \cf15 \strokec15 return\cf17 \strokec17  \cf24 \strokec24 0\cf17 \strokec17 ;\cb1 \
+\cb3 \}\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3 \outl0\strokewidth0 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 Scripts:\
+\
+start_cluster.sh:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 #!/bin/bash\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf27 \cb3 mkdir\cf4  \cf13 -p\cf4  \cf5 logs\cf4 \cb1 \
+\cf27 \cb3 rm\cf4  \cf13 -f\cf4  \cf5 logs/pids.txt\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 PORTS\cf4 =(\cf9 50051\cf4  \cf9 50052\cf4  \cf9 50053\cf4  \cf9 50054\cf4  \cf9 50055\cf4  \cf9 50056\cf4 )\cb1 \
+\cf2 \cb3 for\cf4  \cf8 port\cf4  \cf2 in\cf4  \cf5 "$\{\cf8 PORTS\cf5 [\cf4 @\cf5 ]\}"\cf4 ; \cf2 do\cf4 \cb1 \
+\cb3     \cf27 ./build/kv_server\cf4  \cf5 "localhost:\cf8 $port\cf5 "\cf4  \cf5 cluster.conf\cf4  > \cf5 "logs/node_\cf8 $port\cf5 .log"\cf4  2>&1 &\cb1 \
+\cb3     \cf8 pid\cf4 =\cf33 $!\cf4 \cb1 \
+\cb3     \cf12 echo\cf4  \cf5 "\cf8 $port\cf5  \cf8 $pid\cf5 "\cf4  >> \cf5 logs/pids.txt\cf4 \cb1 \
+\cb3     \cf12 echo\cf4  \cf5 "Started node on localhost:\cf8 $port\cf5  (PID \cf8 $pid\cf5 )"\cf4 \cb1 \
+\cf2 \cb3 done\cf4 \cb1 \
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 stop_cluster.sh:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 #!/bin/bash\cf4 \cb1 \
+\cf27 \cb3 pkill\cf4  \cf13 -x\cf4  \cf5 kv_server\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 echo\cf4  \cf5 "All nodes stopped."\cf4 \cb1 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 kill_node.sh:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf14 \cb3 #!/bin/bash\cf4 \cb1 \
+\cf14 \cb3 # Usage: ./scripts/kill_node.sh <port_name>\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 port\cf4 =\cf27 $1\cf4 \cb1 \
+\cf8 \cb3 pid\cf4 =$(\cf27 grep\cf4  \cf5 "^\cf8 $port\cf5  "\cf4  \cf5 logs/pids.txt\cf4  | \cf27 awk\cf4  \cf5 '\{print $2\}'\cf4 )\cb1 \
+\cf2 \cb3 if\cf4  [ -z \cf5 "\cf8 $pid\cf5 "\cf4  ]; \cf2 then\cf4 \cb1 \
+\cb3     \cf12 echo\cf4  \cf5 "No running node found on port \cf8 $port\cf5 ."\cf4 \cb1 \
+\cb3     \cf12 exit\cf4  \cf9 1\cf4 \cb1 \
+\cf2 \cb3 fi\cf4 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf12 \cb3 kill\cf4  \cf13 -9\cf4  \cf8 $pid\cf4 \cb1 \
+\cf12 \cb3 echo\cf4  \cf5 "Killed node on port \cf8 $port\cf5  (PID \cf8 $pid\cf5 )."\cf4 \cb1 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b \cf4 \
+\
+cluster.config:
+\f2\b0 \cf4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3 localhost:50051\cb1 \
+\cb3 localhost:50052\cb1 \
+\cb3 localhost:50053\cb1 \
+\cb3 localhost:50054\cb1 \
+\cb3 localhost:50055\cb1 \
+\cb3 localhost:50056\cb1 \
+\
+\
+}

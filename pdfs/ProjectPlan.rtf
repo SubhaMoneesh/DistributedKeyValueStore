@@ -1,0 +1,51 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 I want to do this kind of project:\
+\
+"Distributed, Fault-Tolerant Key-Value Store | Self-Project\
+\'95 Architected a distributed key-value store in C++, employing consistent hashing, for high availability & scalability across\
+6-node cluster.\
+\'95 Devised a custom replication layer with a gossip protocol and vector clocks, to ensure data durability and resolve\
+concurrent writes.\
+\'95 Developed a fault-tolerant system with quorum consensus, that can gracefully handle up to two node failures without\
+data loss."\
+\
+So I created a possible plan in accomplishing this project. Plan:\
+"\
+The Step-by-Step Implementation Roadmap:\
+\
+Phase 1: The Single-Node Core & Networking\
+Before making it distributed, you need a solid foundation.\
+Storage Engine: Start simple. Implement an in-memory std::unordered_map protected by a read-write lock (std::shared_mutex) to handle concurrent operations.\
+Networking Layer: Use a basic networking library or write standard socket code to let nodes talk to each other. For C++, gRPC or brpc will save you from writing raw TCP boilerplate and provide clean RPC definitions for Get() and Put() operations.\
+\
+Phase 2: Sharding via Consistent Hashing\
+Instead of a single node holding all the data, you will distribute the keyspace.\
+The Hash Ring: Map both your 6 nodes and the incoming keys onto a continuous 360\uc0\u8728  hash ring (using a hash function like MD5 or SHA-1).\
+Virtual Nodes: To prevent "hotspots" (where one node gets way more data than others), map each physical node to multiple virtual nodes on the ring.\
+Routing: When a client sends a request to any node, that node should hash the key, determine which node owns that segment of the ring, and forward the request if necessary.\
+\
+Phase 3: Replication & Quorum Consensus\
+To handle up to two node failures gracefully, you need data redundancy.\
+Replication Factor (N): Set N=3. When a key is hashed to a node, that node acts as the coordinator and replicates the data to the next 2 distinct physical nodes moving clockwise on the ring.\
+Quorum Mechanics: Implement strict quorum to ensure strong consistency. If you want to tolerate 2 node failures out of a replication factor of 3, you need to configure your Read (R) and Write (W) quorums such that:\
+R+W>N\
+For example, configuring W=2 and R=2 ensures that the read and write sets always overlap by at least one node, preventing stale reads.\
+\
+Phase 4: Decentralized Failure Detection (Gossip Protocol)\
+Instead of a centralized coordinator checking if nodes are alive, make the cluster peer-to-peer.\
+Heartbeating: Each node maintains a list of all other nodes and their respective heartbeat counters.\
+Gossip: Every few hundred milliseconds, a node randomly selects a few peers and shares its membership list. Nodes merge the received list with their own, updating the heartbeat counters.\
+Failure Mark: If a node's heartbeat hasn't incremented within a specific timeout, the cluster marks it as dead and stops routing primary traffic to it.\
+\
+Phase 5: Vector Clocks & Conflict Resolution\
+Because networking is unpredictable, network partitions can occur, leading to concurrent writes where different nodes receive different updates for the same key.\
+Logical Timestamping: Attach a Vector Clock (a map of [Node_ID -> Counter]) to every value.\
+Conflict Detection: When a read happens across the quorum, compare the vector clocks. If one clock dominates the other, return the newest data. If the clocks have diverged (neither dominates), return both versions (siblings) to the client and let the client application resolve the conflict (similar to how Amazon's Dynamo paper handles it).\
+"\
+}

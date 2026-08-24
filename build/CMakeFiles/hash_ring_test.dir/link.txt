@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=thread -g -O1 CMakeFiles/hash_ring_test.dir/tests/hash_ring_test.cpp.o -o hash_ring_test  libhash_ring.a

@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package kvstore;
+
+service KeyValueStore {
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Put(PutRequest) returns (PutResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+  rpc ReplicateGet(ReplicateGetRequest) returns (ReplicateGetResponse);
+  rpc ReplicatePut(ReplicatePutRequest) returns (ReplicatePutResponse);
+  rpc ReplicateDelete(ReplicateDeleteRequest) returns (ReplicateDeleteResponse);
+
+  rpc DebugOwner(DebugOwnerRequest) returns (DebugOwnerResponse);
+  rpc DebugPreferenceList(DebugPreferenceListRequest) returns (DebugPreferenceListResponse);
+  rpc DebugLocalGet(DebugLocalGetRequest) returns (DebugLocalGetResponse);
+
+  rpc Gossip(GossipRequest) returns (GossipResponse);
+  rpc DebugMembership(DebugMembershipRequest) returns (DebugMembershipResponse);
+}
+
+message GetRequest {
+  string key = 1;
+}
+message GetResponse {
+  bool found = 1;
+  bytes value = 2;
+}
+
+message PutRequest {
+  string key = 1;
+  bytes value = 2;
+}
+message PutResponse {
+  bool success = 1;
+}
+
+message DeleteRequest {
+  string key = 1;
+}
+message DeleteResponse {
+  bool success = 1;
+}
+
+message DebugOwnerRequest {
+  string key = 1;
+}
+message DebugOwnerResponse {
+  string owner_address = 1;
+}
+
+message ReplicateGetRequest {
+  string key = 1;
+}
+message ReplicateGetResponse {
+  bool found = 1;
+  bytes value = 2;
+  uint64 timestamp = 3;
+  bool is_tombstone = 4;
+}
+
+message ReplicatePutRequest {
+  string key = 1;
+  bytes value = 2;
+  uint64 timestamp = 3;
+}
+
+message ReplicatePutResponse {
+  bool success = 1;
+}
+
+message ReplicateDeleteRequest {
+  string key = 1;
+  uint64 timestamp = 2;
+}
+message ReplicateDeleteResponse {
+  bool success = 1;
+}
+
+message DebugPreferenceListRequest {
+  string key = 1;
+}
+message DebugPreferenceListResponse {
+  repeated string nodes = 1;
+}
+
+message DebugLocalGetRequest {
+  string key = 1;
+}
+message DebugLocalGetResponse {
+  bool exists = 1;
+  bool is_tombstone = 2;
+  bytes value = 3;
+  uint64 timestamp = 4;
+}
+
+message GossipEntry {
+  string node_address = 1;
+  uint64 start_epoch_ms = 2;
+  uint64 heartbeat = 3;
+}
+
+message GossipRequest {
+  repeated GossipEntry entries = 1;
+}
+
+message GossipResponse {
+  repeated GossipEntry entries = 1;
+}
+
+message DebugMembershipEntry {
+  string node_address = 1;
+  string status = 2; // ALIVE, SUSPECT, DEAD
+  uint64 start_epoch_ms = 3;
+  uint64 heartbeat = 4;
+}
+
+message DebugMembershipRequest {}
+
+message DebugMembershipResponse {
+  repeated DebugMembershipEntry entries = 1;
+}

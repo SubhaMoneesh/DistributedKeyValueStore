@@ -1,0 +1,2954 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/uname"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/uname"
+      - "/opt/homebrew/bin/uname"
+      - "/opt/homebrew/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/System/Cryptexes/App/usr/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Darwin - 25.5.0 - arm64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/gmake"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/gmake"
+      - "/opt/homebrew/bin/gmake"
+      - "/opt/homebrew/sbin/gmake"
+      - "/usr/local/bin/gmake"
+      - "/System/Cryptexes/App/usr/bin/gmake"
+      - "/usr/bin/gmake"
+      - "/bin/gmake"
+      - "/usr/sbin/gmake"
+      - "/sbin/gmake"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/gmake"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/gmake"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/gmake"
+      - "/pkg/env/global/bin/gmake"
+      - "/Library/Apple/usr/bin/gmake"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/gmake"
+      - "/opt/anaconda3/condabin/gmake"
+      - "/Users/subhamoneeshkasireddi/.local/bin/gmake"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/make"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/make"
+      - "/opt/homebrew/bin/make"
+      - "/opt/homebrew/sbin/make"
+      - "/usr/local/bin/make"
+      - "/System/Cryptexes/App/usr/bin/make"
+    found: "/usr/bin/make"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER"
+    description: "CXX compiler"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "c++"
+      - "g++"
+      - "cl"
+      - "bcc"
+      - "icpx"
+      - "icx"
+      - "clang++"
+    candidate_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/c++"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/c++"
+      - "/opt/homebrew/bin/c++"
+      - "/opt/homebrew/sbin/c++"
+      - "/usr/local/bin/c++"
+      - "/System/Cryptexes/App/usr/bin/c++"
+    found: "/usr/bin/c++"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "/opt/homebrew/share/cmake/Modules/"
+    found: "/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/c++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is AppleClang, found in:
+        /Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/4.3.4/CompilerIdCXX/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:296 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler apple sysroot: "/usr/bin/c++" "-E" "apple-sdk.cpp"
+        # 1 "apple-sdk.cpp"
+        # 1 "<built-in>" 1
+        # 1 "<built-in>" 3
+        # 531 "<built-in>" 3
+        # 1 "<command line>" 1
+        # 1 "<built-in>" 2
+        # 1 "apple-sdk.cpp" 2
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 1 3 4
+        # 89 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 1 3 4
+        # 90 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 2 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h" 1 3 4
+        # 91 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 2 3 4
+        # 207 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 1 3 4
+        # 196 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 1 3 4
+        # 197 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 1 3 4
+        # 33 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h" 1 3 4
+        # 34 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 2 3 4
+        # 198 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 1 3 4
+        # 34 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 3 4
+        # 1 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h" 1 3 4
+        # 35 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h" 2 3 4
+        # 199 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h" 2 3 4
+        # 208 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h" 2 3 4
+        # 2 "apple-sdk.cpp" 2
+        
+        
+      Found apple sysroot: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/ar"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/strip"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/ld"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/nm"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    found: "/usr/bin/objdump"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/usr/bin/objcopy"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/objcopy"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/objcopy"
+      - "/opt/homebrew/bin/objcopy"
+      - "/opt/homebrew/sbin/objcopy"
+      - "/usr/local/bin/objcopy"
+      - "/System/Cryptexes/App/usr/bin/objcopy"
+      - "/bin/objcopy"
+      - "/usr/sbin/objcopy"
+      - "/sbin/objcopy"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/objcopy"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/objcopy"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/objcopy"
+      - "/pkg/env/global/bin/objcopy"
+      - "/Library/Apple/usr/bin/objcopy"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/objcopy"
+      - "/opt/anaconda3/condabin/objcopy"
+      - "/Users/subhamoneeshkasireddi/.local/bin/objcopy"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/usr/bin/readelf"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/readelf"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/readelf"
+      - "/opt/homebrew/bin/readelf"
+      - "/opt/homebrew/sbin/readelf"
+      - "/usr/local/bin/readelf"
+      - "/System/Cryptexes/App/usr/bin/readelf"
+      - "/bin/readelf"
+      - "/usr/sbin/readelf"
+      - "/sbin/readelf"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/readelf"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/readelf"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/readelf"
+      - "/pkg/env/global/bin/readelf"
+      - "/Library/Apple/usr/bin/readelf"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/readelf"
+      - "/opt/anaconda3/condabin/readelf"
+      - "/Users/subhamoneeshkasireddi/.local/bin/readelf"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/usr/bin/dlltool"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/dlltool"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/dlltool"
+      - "/opt/homebrew/bin/dlltool"
+      - "/opt/homebrew/sbin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/System/Cryptexes/App/usr/bin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/sbin/dlltool"
+      - "/sbin/dlltool"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/dlltool"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/dlltool"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dlltool"
+      - "/pkg/env/global/bin/dlltool"
+      - "/Library/Apple/usr/bin/dlltool"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/dlltool"
+      - "/opt/anaconda3/condabin/dlltool"
+      - "/Users/subhamoneeshkasireddi/.local/bin/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/usr/bin/addr2line"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/addr2line"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/addr2line"
+      - "/opt/homebrew/bin/addr2line"
+      - "/opt/homebrew/sbin/addr2line"
+      - "/usr/local/bin/addr2line"
+      - "/System/Cryptexes/App/usr/bin/addr2line"
+      - "/bin/addr2line"
+      - "/usr/sbin/addr2line"
+      - "/sbin/addr2line"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/addr2line"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/addr2line"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/addr2line"
+      - "/pkg/env/global/bin/addr2line"
+      - "/Library/Apple/usr/bin/addr2line"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/addr2line"
+      - "/opt/anaconda3/condabin/addr2line"
+      - "/Users/subhamoneeshkasireddi/.local/bin/addr2line"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/usr/bin/tapi"
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/tapi"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/tapi"
+      - "/opt/homebrew/bin/tapi"
+      - "/opt/homebrew/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/System/Cryptexes/App/usr/bin/tapi"
+      - "/bin/tapi"
+      - "/usr/sbin/tapi"
+      - "/sbin/tapi"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/tapi"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/tapi"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/tapi"
+      - "/pkg/env/global/bin/tapi"
+      - "/Library/Apple/usr/bin/tapi"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/tapi"
+      - "/opt/anaconda3/condabin/tapi"
+      - "/Users/subhamoneeshkasireddi/.local/bin/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake:66 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "program"
+    variable: "CMAKE_INSTALL_NAME_TOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "install_name_tool"
+    candidate_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/pkg/env/global/bin/"
+      - "/Library/Apple/usr/bin/"
+      - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin/"
+      - "/opt/anaconda3/condabin/"
+      - "/Users/subhamoneeshkasireddi/.local/bin/"
+    searched_directories:
+      - "/Users/subhamoneeshkasireddi/.pyenv/shims/install_name_tool"
+      - "/Users/subhamoneeshkasireddi/.pyenv/bin/install_name_tool"
+      - "/opt/homebrew/bin/install_name_tool"
+      - "/opt/homebrew/sbin/install_name_tool"
+      - "/usr/local/bin/install_name_tool"
+      - "/System/Cryptexes/App/usr/bin/install_name_tool"
+    found: "/usr/bin/install_name_tool"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE"
+      binary: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1ad60/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_1ad60.dir/build.make CMakeFiles/cmTC_1ad60.dir/build
+        Building CXX object CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Apple clang version 21.0.0 (clang-2100.1.1.101)
+        Target: arm64-apple-darwin25.5.0
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+        clang++: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -fno-sized-deallocation -target-sdk-version=26.5 -fvisibility-inlines-hidden-static-local-var -fno-modulemap-allow-subdirectory-search -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb "-fdebug-compilation-dir=/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE" -target-linker-version 1267 -v "-fcoverage-compilation-dir=/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -Wno-error=allocator-wrappers -fdwarf2-cfi-asm -o CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 21.0.0 (clang-2100.1.1.101) default target arm64-apple-darwin25.5.0
+        ignoring nonexistent directory "/usr/local/include"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
+        ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
+         /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
+         /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
+        End of search list.
+        Linking CXX executable cmTC_1ad60
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1ad60.dir/link.txt --verbose=1
+        Apple clang version 21.0.0 (clang-2100.1.1.101)
+        Target: arm64-apple-darwin25.5.0
+        Thread model: posix
+        InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.5 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_1ad60 -L/usr/local/lib -v CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a
+        @(#)PROGRAM:ld PROJECT:ld-1267
+        BUILD 16:38:58 Jun  8 2026
+        configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
+        will use ld-classic for: armv6 armv7 armv7s i386 armv6m armv7k armv7m armv7em
+        LTO support using: LLVM version 21.0.0 (static support for 30, runtime is 30)
+        TAPI support using: Apple TAPI version 21.0.0 (tapi-2100.0.2.6)
+        Library search paths:
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift
+        Framework search paths:
+        	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
+        /usr/bin/c++  -arch arm64  -v -Wl,-v CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_1ad60
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:122 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Effective list of requested architectures (possibly empty)  : ""
+      Effective list of architectures found in the ABI info binary: "arm64"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1]
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include]
+          add: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        end of search list found
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include]
+        collapse include dir [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        implicit include dirs: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE']
+        ignore line: []
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_1ad60/fast]
+        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_1ad60.dir/build.make CMakeFiles/cmTC_1ad60.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Apple clang version 21.0.0 (clang-2100.1.1.101)]
+        ignore line: [Target: arm64-apple-darwin25.5.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        ignore line: [clang++: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"]
+        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple arm64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -fno-sized-deallocation -target-sdk-version=26.5 -fvisibility-inlines-hidden-static-local-var -fno-modulemap-allow-subdirectory-search -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -enable-tlsdesc -target-cpu apple-m1 -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +ccpp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +flagm -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb "-fdebug-compilation-dir=/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE" -target-linker-version 1267 -v "-fcoverage-compilation-dir=/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-G3LMoE" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21 -dependency-file CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -Wno-error=allocator-wrappers -fdwarf2-cfi-asm -o CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 21.0.0 (clang-2100.1.1.101) default target arm64-apple-darwin25.5.0]
+        ignore line: [ignoring nonexistent directory "/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"]
+        ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
+        ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_1ad60]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1ad60.dir/link.txt --verbose=1]
+        ignore line: [Apple clang version 21.0.0 (clang-2100.1.1.101)]
+        ignore line: [Target: arm64-apple-darwin25.5.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
+        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 26.0.0 26.5 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_1ad60 -L/usr/local/lib -v CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
+          arg [-demangle] ==> ignore
+          arg [-lto_library] ==> ignore, skip following value
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib] ==> skip value of -lto_library
+          arg [-dynamic] ==> ignore
+          arg [-arch] ==> ignore
+          arg [arm64] ==> ignore
+          arg [-platform_version] ==> ignore
+          arg [macos] ==> ignore
+          arg [26.0.0] ==> ignore
+          arg [26.5] ==> ignore
+          arg [-syslibroot] ==> ignore
+          arg [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk] ==> ignore
+          arg [-mllvm] ==> ignore
+          arg [-enable-linkonceodr-outlining] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_1ad60] ==> ignore
+          arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_1ad60.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lc++] ==> lib [c++]
+          arg [-lSystem] ==> lib [System]
+          arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a]
+        linker tool for 'CXX': /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+        Library search paths: [;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift]
+        Framework search paths: [;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks]
+        remove lib [System]
+        remove lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/lib/darwin/libclang_rt.osx.a]
+        collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib]
+        collapse library dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift]
+        collapse framework dir [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks] ==> [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks]
+        implicit libs: [c++]
+        implicit objs: []
+        implicit dirs: [/usr/local/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift]
+        implicit fwks: [/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" "-v"
+      @(#)PROGRAM:ld PROJECT:ld-1267
+      BUILD 16:38:58 Jun  8 2026
+      configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
+      will use ld-classic for: armv6 armv7 armv7s i386 armv6m armv7k armv7m armv7em
+      LTO support using: LLVM version 21.0.0 (static support for 30, runtime is 30)
+      TAPI support using: Apple TAPI version 21.0.0 (tapi-2100.0.2.6)
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CheckCXXSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "/opt/homebrew/share/cmake/Modules/FindThreads.cmake:162 (check_cxx_source_compiles)"
+      - "/opt/homebrew/share/cmake/Modules/FindThreads.cmake:226 (_threads_check_libc)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
+      - "/Users/subhamoneeshkasireddi/.local/lib/cmake/absl/abslConfig.cmake:4 (find_dependency)"
+      - "/Users/subhamoneeshkasireddi/.local/lib/cmake/protobuf/protobuf-config.cmake:7 (find_package)"
+      - "CMakeLists.txt:10 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-RriVqL"
+      binary: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-RriVqL"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-RriVqL'
+        
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_31bca/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_31bca.dir/build.make CMakeFiles/cmTC_31bca.dir/build
+        Building CXX object CMakeFiles/cmTC_31bca.dir/src.cxx.o
+        /usr/bin/c++ -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu++17 -arch arm64 -MD -MT CMakeFiles/cmTC_31bca.dir/src.cxx.o -MF CMakeFiles/cmTC_31bca.dir/src.cxx.o.d -o CMakeFiles/cmTC_31bca.dir/src.cxx.o -c "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/CMakeScratch/TryCompile-RriVqL/src.cxx"
+        Linking CXX executable cmTC_31bca
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31bca.dir/link.txt --verbose=1
+        /usr/bin/c++  -arch arm64 CMakeFiles/cmTC_31bca.dir/src.cxx.o -o cmTC_31bca
+        
+      exitCode: 0
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "/Users/subhamoneeshkasireddi/.local/lib/cmake/protobuf/protobuf-config.cmake:7 (find_package)"
+      - "CMakeLists.txt:10 (find_package)"
+    name: "absl"
+    configs:
+      -
+        filename: "absl.cps"
+        kind: "cps"
+      -
+        filename: "abslConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "absl-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "optional"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "absl"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/abslConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/absl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/absl.cps"
+        mode: "cps"
+        reason: "no_exist"
+    found:
+      path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/absl/abslConfig.cmake"
+      mode: "config"
+      version: "20250512"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "/Users/subhamoneeshkasireddi/.local/lib/cmake/protobuf/protobuf-config.cmake:10 (find_package)"
+      - "CMakeLists.txt:10 (find_package)"
+    name: "utf8_range"
+    configs:
+      -
+        filename: "utf8_range.cps"
+        kind: "cps"
+      -
+        filename: "utf8_rangeConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "utf8_range-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "optional"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "utf8_range"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/utf8_range-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/utf8_range.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/utf8_range/utf8_rangeConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/utf8_range/utf8_range-config.cmake"
+      mode: "config"
+      version: ""
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:10 (find_package)"
+    name: "Protobuf"
+    configs:
+      -
+        filename: "Protobuf.cps"
+        kind: "cps"
+      -
+        filename: "protobuf.cps"
+        kind: "cps"
+      -
+        filename: "ProtobufConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "protobuf-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Protobuf"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/protobuf-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/Protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/protobuf.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/protobuf/ProtobufConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/protobuf/protobuf-config.cmake"
+      mode: "config"
+      version: "31.1.0"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:11 (find_package)"
+    name: "gRPC"
+    configs:
+      -
+        filename: "gRPC.cps"
+        kind: "cps"
+      -
+        filename: "grpc.cps"
+        kind: "cps"
+      -
+        filename: "gRPCConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "grpc-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "gRPC"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/Desktop/Cpp Workspace/Distributed Systems/kv-store/build/CMakeFiles/pkgRedirects/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/shims/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.pyenv/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/local/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/System/Cryptexes/App/usr/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/usr/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Library/Apple/usr/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/opt/anaconda3/condabin/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/gRPCConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/grpc-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib64/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/lib/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/gRPC.cps"
+        mode: "cps"
+        reason: "no_exist"
+      -
+        path: "/Users/subhamoneeshkasireddi/.local/share/cps/grpc.cps"
+        mode: "cps"
+        reason: "no_exist"
+    found:
+      path: "/Users/subhamoneeshkasireddi/.local/lib/cmake/grpc/gRPCConfig.cmake"
+      mode: "config"
+      version: "1.80.0"
+    search_context:
+      ENV{PATH}:
+        - "/Users/subhamoneeshkasireddi/.pyenv/shims"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/Users/subhamoneeshkasireddi/Desktop/springBoot Workspace/apache-maven-3.9.11/bin"
+        - "/opt/anaconda3/condabin"
+        - "/Users/subhamoneeshkasireddi/.pyenv/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+        - "/Users/subhamoneeshkasireddi/.local/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"
+        - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+...

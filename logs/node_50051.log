@@ -1,0 +1,4 @@
+Node localhost:50051 ready. Cluster size: 6. N: 3, W: 2 and R: 2
+Server listening on port localhost:50051
+Shutdown requested. Shutting down gracefully.
+Server shutdown complete.
