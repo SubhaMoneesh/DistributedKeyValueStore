@@ -105,3 +105,15 @@ target_link_libraries(replication_test PRIVATE kv_grpc_proto Threads::Threads)
 
 add_executable(fault_tolerance_test tests/fault_tolerance_test.cpp)
 target_link_libraries(fault_tolerance_test PRIVATE kv_grpc_proto Threads::Threads)
+
+
+
+# 10. Membership Service Test
+
+# --- Membership Service Library ---
+add_library(membership_service src/membership_service.cpp src/membership_service.h)
+
+add_executable(membership_service_test tests/membership_service_test.cpp)
+target_link_libraries(membership_service_test PRIVATE membership_service Threads::Threads)
+target_compile_options(membership_service_test PRIVATE ${SANITIZER_FLAGS})
+target_link_options(membership_service_test PRIVATE ${SANITIZER_FLAGS})

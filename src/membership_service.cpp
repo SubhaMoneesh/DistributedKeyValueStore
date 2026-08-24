@@ -18,8 +18,8 @@ std::string ToString(NodeStatus s) {
 MembershipService::MembershipService(
     std::string self_address,
     const std::vector<std::string>& all_nodes,
-    std::chrono::milliseconds suspect_timeout = std::chrono::milliseconds(1500),
-    std::chrono::milliseconds dead_timeout = std::chrono::milliseconds(4000)
+    std::chrono::milliseconds suspect_timeout,
+    std::chrono::milliseconds dead_timeout
 ) 
  :  self_address_(std::move(self_address)), 
     suspect_timeout_(suspect_timeout),
@@ -125,6 +125,12 @@ bool MembershipService::isDead(const std::string& node) const {
     std::shared_lock lock(mutex_);
     auto it = table_.find(node);
     return it != table_.end() && it->second.status == NodeStatus::DEAD;
+}
+
+bool MembershipService::isSuspect(const std::string& node) const {
+    std::shared_lock lock(mutex_);
+    auto it = table_.find(node);
+    return it != table_.end() && it->second.status == NodeStatus::SUSPECT;
 }
 
 std::vector<std::string> MembershipService::GetAliveNodes() const {

@@ -38,6 +38,7 @@ class MembershipService {
 
         bool isAlive(const std::string& node) const;
         bool isDead(const std::string& node) const;
+        bool isSuspect(const std::string& node) const;
         std::vector<std::string> GetAliveNodes() const;
 
     private:
