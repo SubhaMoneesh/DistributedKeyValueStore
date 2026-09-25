@@ -96,7 +96,3 @@ Currently, the project completes **Phase 1 through Phase 3** of the original des
 *   [ ] **Phase 5: Vector Clocks & Conflict Resolution**
     *   Implement Vector Clocks `[Node_ID -> Counter]` to track causal histories of keys.
     *   Handle network partitions by returning sibling versions on diverged reads, passing conflict resolution to the client application.
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
